@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>JSON RPC - PlatONE</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "JSON RPC API", url: "#_top", children: [
+              {title: "JavaScript API", url: "#javascript-api" },
+              {title: "JSON-RPC Endpoint", url: "#json-rpc-endpoint" },
+              {title: "JSON-RPC support", url: "#json-rpc-support" },
+              {title: "HEX value encoding", url: "#hex-value-encoding" },
+              {title: "The default block parameter", url: "#the-default-block-parameter" },
+              {title: "Curl Examples Explained", url: "#curl-examples-explained" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script>
+      <script src="../../mathjax-config.js"></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../PlatONE_eth/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../PlatONE_eth/" class="btn btn-xs btn-link">
+        eth Namespace
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../%E6%B5%8F%E8%A7%88%E5%99%A8/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B5%8F%E8%A7%88%E5%99%A8%E9%85%8D%E7%BD%AE/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../%E6%B5%8F%E8%A7%88%E5%99%A8/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B5%8F%E8%A7%88%E5%99%A8%E9%85%8D%E7%BD%AE/" class="btn btn-xs btn-link">
+        浏览器
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="json-rpc-api">JSON RPC API</h1>
+<p><a href="http://json.org/">JSON</a> is a lightweight data-interchange format. It can represent numbers, strings, ordered sequences of values, and collections of name/value pairs.</p>
+<p><a href="http://www.jsonrpc.org/specification">JSON-RPC</a> is a stateless, light-weight remote procedure call (RPC) protocol. Primarily this specification defines several data structures and the rules around their processing. It is transport agnostic in that the concepts can be used within the same process, over sockets, over HTTP, or in many various message passing environments. It uses JSON (<a href="http://www.ietf.org/rfc/rfc4627.txt">RFC 4627</a>) as data format.</p>
+<h2 id="javascript-api">JavaScript API</h2>
+<p>To talk to an PlatONE node from inside a JavaScript application use the <a href="https://github.com/ethereum/web3.js">web3.js</a> library, which gives a convenient interface for the RPC methods.
+See the <a href="https://github.com/ethereum/wiki/wiki/JavaScript-API">JavaScript API</a> for more.</p>
+<h2 id="json-rpc-endpoint">JSON-RPC Endpoint</h2>
+<p>Default JSON-RPC endpoints:</p>
+<table>
+<thead>
+<tr>
+<th>Client</th>
+<th align="center">URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Go</td>
+<td align="center">http://localhost:6790</td>
+</tr>
+</tbody>
+</table>
+<h3 id="go">Go</h3>
+<p>You can start the HTTP JSON-RPC with the <code>--rpc</code> flag</p>
+<pre class="highlight"><code class="language-bash">platone --rpc</code></pre>
+
+<p>change the default port (8545) and listing address (localhost) with:</p>
+<pre class="highlight"><code class="language-bash">platone --rpc --rpcaddr &lt;ip&gt; --rpcport &lt;portnumber&gt;</code></pre>
+
+<p>If accessing the RPC from a browser, CORS will need to be enabled with the appropriate domain set. Otherwise, JavaScript calls are limit by the same-origin policy and requests will fail:</p>
+<pre class="highlight"><code class="language-bash">platone --rpc --rpccorsdomain "http://localhost:3000"</code></pre>
+
+<p>The JSON RPC can also be started from the <a href="https://github.com/ethereum/go-ethereum/wiki/JavaScript-Console">platone console</a> using the <code>admin.startRPC(addr, port)</code> command.</p>
+<h2 id="json-rpc-support">JSON-RPC support</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="center">PlatONE-Go</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JSON-RPC 1.0</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td>JSON-RPC 2.0</td>
+<td align="center">&#x2713;</td>
+</tr>
+<tr>
+<td>Batch requests</td>
+<td align="center">&#x2713;</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td align="center">&#x2713;</td>
+</tr>
+<tr>
+<td>IPC</td>
+<td align="center">&#x2713;</td>
+</tr>
+<tr>
+<td>WS</td>
+<td align="center">&#x2713;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="hex-value-encoding">HEX value encoding</h2>
+<p>At present there are two key datatypes that are passed over JSON: unformatted byte arrays and quantities. Both are passed with a hex encoding, however with different requirements to formatting:</p>
+<p>When encoding <strong>QUANTITIES</strong> (integers, numbers): encode as hex, prefix with "0x", the most compact representation (slight exception: zero should be represented as "0x0"). Examples:</p>
+<ul>
+<li>0x41 (65 in decimal)</li>
+<li>0x400 (1024 in decimal)</li>
+<li>WRONG: 0x (should always have at least one digit - zero is "0x0")</li>
+<li>WRONG: 0x0400 (no leading zeroes allowed)</li>
+<li>WRONG: ff (must be prefixed 0x)</li>
+</ul>
+<p>When encoding <strong>UNFORMATTED DATA</strong> (byte arrays, account addresses, hashes, bytecode arrays): encode as hex, prefix with "0x", two hex digits per byte. Examples:</p>
+<ul>
+<li>0x41 (size 1, "A")</li>
+<li>0x004200 (size 3, "\0B\0")</li>
+<li>0x (size 0, "")</li>
+<li>WRONG: 0xf0f0f (must be even number of digits)</li>
+<li>WRONG: 004200 (must be prefixed 0x)</li>
+</ul>
+<p>Currently <a href="https://github.com/ethereum/cpp-ethereum">cpp-ethereum</a>,<a href="https://github.com/ethereum/go-ethereum">go-ethereum</a> and <a href="https://github.com/paritytech/parity">parity</a> provide JSON-RPC communication over http and IPC (unix socket Linux and OSX/named pipes on Windows). Version 1.4 of go-ethereum, version 1.6 of Parity and version 0.8 of Pantheon onwards have websocket support.</p>
+<h2 id="the-default-block-parameter">The default block parameter</h2>
+<p>The following methods have an extra default block parameter:</p>
+<ul>
+<li><a href="#eth_getbalance">eth_getBalance</a></li>
+<li><a href="#eth_getcode">eth_getCode</a></li>
+<li><a href="#eth_gettransactioncount">eth_getTransactionCount</a></li>
+<li><a href="#eth_getstorageat">eth_getStorageAt</a></li>
+<li><a href="#eth_call">eth_call</a></li>
+</ul>
+<p>When requests are made that act on the state of ethereum, the last default block parameter determines the height of the block.</p>
+<p>The following options are possible for the defaultBlock parameter:</p>
+<ul>
+<li><code>HEX String</code> - an integer block number</li>
+<li><code>String "earliest"</code> for the earliest/genesis block</li>
+<li><code>String "latest"</code> - for the latest mined block</li>
+<li><code>String "pending"</code> - for the pending state/transactions</li>
+</ul>
+<h2 id="curl-examples-explained">Curl Examples Explained</h2>
+<p>The curl options below might return a response where the node complains about the content type, this is because the --data option sets the content type to application/x-www-form-urlencoded . If your node does complain, manually set the header by placing -H "Content-Type: application/json" at the start of the call.</p>
+<p>The examples also do not include the URL/IP &amp; port combination which must be the last argument given to curl e.x. 127.0.0.1:8545</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../PlatONE_eth/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../PlatONE_eth/" class="btn btn-xs btn-link">
+        eth Namespace
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../../%E6%B5%8F%E8%A7%88%E5%99%A8/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B5%8F%E8%A7%88%E5%99%A8%E9%85%8D%E7%BD%AE/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../%E6%B5%8F%E8%A7%88%E5%99%A8/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B5%8F%E8%A7%88%E5%99%A8%E9%85%8D%E7%BD%AE/" class="btn btn-xs btn-link">
+        浏览器
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

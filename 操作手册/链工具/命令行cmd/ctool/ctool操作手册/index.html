@@ -92,7 +92,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <h2 id="1-configjson">1. 配置文件 config.json</h2>
 <p>ctool中的部分参数会从配置文件中读取，若未指定<code>-config</code>，默认情况下从当前目录读取<code>config.json</code>文件。</p>
 <p>config.json文件展示：</p>
-<pre class="codehilite"><code class="language-json">{
+<pre class="highlight"><code class="language-json">{
   "url":"http://192.168.9.73:6789",
   "gas": "0x76c0",
   "gasPrice": "0x9184e72a000",
@@ -100,7 +100,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 }</code></pre>
 
 <h2 id="2-ctool-deploy">2. 合约部署 | ctool deploy</h2>
-<pre class="codehilite"><code class="language-bash">./ctool deploy
+<pre class="highlight"><code class="language-bash">./ctool deploy
 -abi        abi json file path (must)
 -code       wasm file path (must)
 -config     config path  (optional)
@@ -109,7 +109,7 @@ e.g： ./ctool deploy -abi "D:\\resource\\temp\\contractc.cpp.abi.json" -code "D
 
 <h2 id="3">3. 合约调用</h2>
 <h3 id="31-ctool-invoke">3.1 普通调用 | ctool invoke</h3>
-<pre class="codehilite"><code class="language-bash">./ctool invoke
+<pre class="highlight"><code class="language-bash">./ctool invoke
 -addr     contract address (must)
 -func     functon name and param (must)
 -abi      abi json file path (must)
@@ -118,7 +118,7 @@ e.g： ./ctool deploy -abi "D:\\resource\\temp\\contractc.cpp.abi.json" -code "D
 e.g: ./ctool invoke -addr "0xFC43e7f481b9d3F75CcfFc8D23eAC522E96dE570" -func "transfer("a",b,c) " -abi "D:\\resource\\temp\\contractc.cpp.abi.json" -type</code></pre>
 
 <h3 id="32-ctool-cnsinvoke">3.2 合约名称调用 | ctool cnsInvoke</h3>
-<pre class="codehilite"><code class="language-bash">./ctool cnsInvoke
+<pre class="highlight"><code class="language-bash">./ctool cnsInvoke
 -cns      contract name (must)
 -func     functon name and param (must)
 -abi      abi json file path (must)
@@ -128,7 +128,7 @@ e.g: ./ctool invoke -addr "0xFC43e7f481b9d3F75CcfFc8D23eAC522E96dE570" -func "tr
 e.g: ./ctool cnsInvoke --cns "test" -func "transfer("a",b,c) " -abi "D:\\resource\\temp\\contractc.cpp.abi.json"</code></pre>
 
 <h2 id="4-ctool-sendtransaction">4. 转账 | ctool sendTransaction</h2>
-<pre class="codehilite"><code class="language-bash">./ctool sendTransaction
+<pre class="highlight"><code class="language-bash">./ctool sendTransaction
 -from       msg sender (must)
 -to         msg acceptor (must)
 -value      transfer value (must)
@@ -137,14 +137,14 @@ e.g: ./ctool cnsInvoke --cns "test" -func "transfer("a",b,c) " -abi "D:\\resourc
 e.g: ./ctool transfer --from "0xb239401ecf8427f17c6de134d6a6bddd3100251f" --to "0X123" --value "10"</code></pre>
 
 <h2 id="5-ctool-gettxreceipt">5. 交易回执查询 | ctool getTxReceipt</h2>
-<pre class="codehilite"><code class="language-bash">./ctool getTxReceipt
+<pre class="highlight"><code class="language-bash">./ctool getTxReceipt
 -hash       txhash (must)
 -config     config path (optional)
 
 e.g: ./ctool getTxReceipt -hash &lt;transaction_hash&gt; -config "../config.json"</code></pre>
 
 <h2 id="6-ctool-fwinvoke">6. 防火墙操作 | ctool fwInvoke</h2>
-<pre class="codehilite"><code class="language-bash">./ctool fwInvoke
+<pre class="highlight"><code class="language-bash">./ctool fwInvoke
 -addr     contract address (must)
 -func     functon name and param (must)
 -config   config path (optional)

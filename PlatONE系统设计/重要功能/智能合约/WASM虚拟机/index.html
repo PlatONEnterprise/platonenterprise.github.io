@@ -73,10 +73,10 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     </div>
     
     <div class="wm-article-nav">
-      <a href="../%E9%9A%90%E7%A7%81%E5%AF%86%E7%A0%81%E8%B4%A7%E5%B8%81/" class="btn btn-xs btn-default pull-left">
+      <a href="../%E5%90%88%E7%BA%A6%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/" class="btn btn-xs btn-default pull-left">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../%E9%9A%90%E7%A7%81%E5%AF%86%E7%A0%81%E8%B4%A7%E5%B8%81/" class="btn btn-xs btn-link">
-        隐私密码货币
+        Previous</a><a href="../%E5%90%88%E7%BA%A6%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/" class="btn btn-xs btn-link">
+        合约数据迁移
       </a>
     </div>
     
@@ -168,10 +168,10 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>头部和段数据是一个WebAssembly模块二进制文件最外层的结构。头部标识WebAssembly模块和版本信息，段数据则是保存各种模块数据。</p>
 <h4 id="231">2.3.1. 头部</h4>
 <p>WebAssembly以模块为基本单元，而最简单的模块可以没有任何代码：</p>
-<pre class="codehilite"><code>(module)</code></pre>
+<pre class="highlight"><code>(module)</code></pre>
 
 <p>用wat2wasm工具将上述WebAssembly汇编代码编译为二进制模块：</p>
-<pre class="codehilite"><code>$ wat2wasm -v program.wat
+<pre class="highlight"><code>$ wat2wasm -v program.wat
 0000000: 0061 736d                                 ; WASM_BINARY_MAGIC
 0000004: 0100 0000                                 ; WASM_BINARY_VERSION</code></pre>
 
@@ -237,14 +237,14 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </tbody>
 </table>
 <p>为了研究段数据段组织方式，我们在模块中添加一个简单的函数：</p>
-<pre class="codehilite"><code>(module
+<pre class="highlight"><code>(module
     (func (result i32)
         i32.const 55
     )
 )</code></pre>
 
 <p>模块中的函数没有输入参数，只返回一个整数常量。我们用wat2wasm命令查看一下生成的二进制数据：</p>
-<pre class="codehilite"><code>$ wat2wasm -v demo.wat
+<pre class="highlight"><code>$ wat2wasm -v demo.wat
 0000000: 0061 736d                                 ; WASM_BINARY_MAGIC
 0000004: 0100 0000                                 ; WASM_BINARY_VERSION
 ; section "Type" (1)
@@ -526,7 +526,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </tbody>
 </table>
 <p>二进制代码如下：</p>
-<pre class="codehilite"><code>; section "Export" (7)
+<pre class="highlight"><code>; section "Export" (7)
 0000015: 07                                        ; section code
 0000016: 00                                        ; section size (guess)
 0000017: 01                                        ; num exports
@@ -619,7 +619,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </tbody>
 </table>
 <p>二进制如下：</p>
-<pre class="codehilite"><code>; section "Code" (10)
+<pre class="highlight"><code>; section "Code" (10)
 0000023: 0a                                        ; section code
 0000024: 00                                        ; section size (guess)
 0000025: 01                                        ; num functions
@@ -663,10 +663,10 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     </div>
     
     <div class="wm-article-nav">
-      <a href="../%E9%9A%90%E7%A7%81%E5%AF%86%E7%A0%81%E8%B4%A7%E5%B8%81/" class="btn btn-xs btn-default pull-left">
+      <a href="../%E5%90%88%E7%BA%A6%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/" class="btn btn-xs btn-default pull-left">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Previous</a><a href="../%E9%9A%90%E7%A7%81%E5%AF%86%E7%A0%81%E8%B4%A7%E5%B8%81/" class="btn btn-xs btn-link">
-        隐私密码货币
+        Previous</a><a href="../%E5%90%88%E7%BA%A6%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/" class="btn btn-xs btn-link">
+        合约数据迁移
       </a>
     </div>
     

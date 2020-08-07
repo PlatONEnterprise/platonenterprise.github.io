@@ -226,7 +226,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>合约防火墙独立于合约的代码逻辑，合约代码只需要关注业务逻辑而不需要关注被调用的权限。Dapp开发者可根据自己的业务特征对自己的合约设置防火墙规则。</p>
 <h2 id="7">7. 平台角色接口封装</h2>
 <p>需要对系统合约在跨合约调用时频繁用到的平台角色接口进行封装。</p>
-<pre class="codehilite"><code class="language-c++">bool __sys_isChainOwer(Address);
+<pre class="highlight"><code class="language-c++">bool __sys_isChainOwer(Address);
 
 bool __sys_isChainAdmin(Address);
 
@@ -250,7 +250,7 @@ bool __sys_setContractDeployer(Address);</code></pre>
 <p>由底层向合约层提供的调用为扩展调用.</p>
 <p>底层使用一个虚拟合约地址0x00000000000000000000000000000000000000ec（简写为0xec），向合约提供调用服务。每一个扩展调用可看作是0xec合约的一个方法，底层通过拦截地址及方法的方式提供服务。</p>
 <p>针对每一个扩展调用，会在合约层封装一个接口。</p>
-<pre class="codehilite"><code class="language-C++">string __sys_PAIL_encrypt(const string&amp; _number, const string&amp; _pubkey);
+<pre class="highlight"><code class="language-C++">string __sys_PAIL_encrypt(const string&amp; _number, const string&amp; _pubkey);
 
 string __sys_PAIL_homAdd(string _cipher1, string _cipher2, string _pubkey);
 

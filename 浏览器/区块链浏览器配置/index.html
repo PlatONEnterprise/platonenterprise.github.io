@@ -64,12 +64,12 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
     
     <div class="wm-article-nav pull-right">
-      <a href="../../JSON-RPC_API/JSON-RPC_API/" class="btn btn-xs btn-default pull-right">
+      <a href="../../JSON-RPC_API/PlatONE_RPC_APIs/" class="btn btn-xs btn-default pull-right">
         Next
         <i class="fa fa-chevron-right" aria-hidden="true"></i>
       </a>
-      <a href="../../JSON-RPC_API/JSON-RPC_API/" class="btn btn-xs btn-link">
-        JSON-RPC API
+      <a href="../../JSON-RPC_API/PlatONE_RPC_APIs/" class="btn btn-xs btn-link">
+        JSON RPC
       </a>
     </div>
     
@@ -120,10 +120,10 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </ul>
 <h3 id="22">2.2. 后端配置</h3>
 <p>代码clone：</p>
-<pre class="codehilite"><code class="language-shell">git clone git@172.16.211.192:PlatONE/src/explorer/explore-java.git</code></pre>
+<pre class="highlight"><code class="language-shell">git clone git@172.16.211.192:PlatONE/src/explorer/explore-java.git</code></pre>
 
 <p>数据库配置：</p>
-<pre class="codehilite"><code class="language-shell">#连接mysql
+<pre class="highlight"><code class="language-shell">#连接mysql
 mysql -u root -p
 
 #导入默认表
@@ -136,7 +136,7 @@ source ${PathToExplorerProject}/db/bcos_browser_table.sql </code></pre>
 <li>服务端口配置</li>
 <li>数据库连接配置</li>
 </ul>
-<pre class="codehilite"><code class="language-java">//服务端口
+<pre class="highlight"><code class="language-java">//服务端口
 server:
   port: 9600
 spring:
@@ -156,10 +156,10 @@ spring:
 </ul>
 <h3 id="23">2.3. 前端配置</h3>
 <p>代码clone：</p>
-<pre class="codehilite"><code class="language-shell">git clone git@172.16.211.192:PlatONE/src/explorer/client.git</code></pre>
+<pre class="highlight"><code class="language-shell">git clone git@172.16.211.192:PlatONE/src/explorer/client.git</code></pre>
 
 <p>编译：</p>
-<pre class="codehilite"><code class="language-shell">cd explore/client
+<pre class="highlight"><code class="language-shell">cd explore/client
 npm run build</code></pre>
 
 <ul>
@@ -174,7 +174,7 @@ npm run build</code></pre>
 <li>修改前端文件的路径,直接指向已拉取代码的dist目录。</li>
 <li>修改后端服务的ip和端口，注意'/api'不要修改。</li>
 </ol>
-<pre class="codehilite"><code class="language-Nginx">    server {
+<pre class="highlight"><code class="language-Nginx">    server {
             listen       8088 default_server;   //步骤1、前端端口
             server_name  192.168.0.1;         //步骤1、前端地址，可配置为域名
             location / {
@@ -197,7 +197,7 @@ npm run build</code></pre>
 <h3 id="24-nginx">2.4 启动nginx</h3>
 <p>(1)、启动nginx。
 启动命令：</p>
-<pre class="codehilite"><code class="language-shell">/usr/local/nginx/sbin/nginx   </code></pre>
+<pre class="highlight"><code class="language-shell">/usr/local/nginx/sbin/nginx   </code></pre>
 
 <p>启动报错重点排查：日志路径是否正确（error.log和access.log），nginx有没有添加用户权限。</p>
 <p>(2)、打开页面，页面url是nginx配置的前端端口和前端ip。
@@ -246,7 +246,7 @@ nginx: configuration file /usr/local/nginx/conf/nginx.conf test is successful</c
 
 
 <h5 id="3136-nginx">3.1.3.6. nginx几个常见命令</h5>
-<pre class="codehilite"><code class="language-shell">/usr/local/nginx/sbin/nginx -s reload            # 重新载入配置文件
+<pre class="highlight"><code class="language-shell">/usr/local/nginx/sbin/nginx -s reload            # 重新载入配置文件
 /usr/local/nginx/sbin/nginx -s reopen            # 重启 Nginx
 /usr/local/nginx/sbin/nginx -s stop              # 停止 Nginx
 ps -ef | grep nginx                              # 查看nginx进程</code></pre>
@@ -262,12 +262,12 @@ ps -ef | grep nginx                              # 查看nginx进程</code></pre
   <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
     
     <div class="wm-article-nav pull-right">
-      <a href="../../JSON-RPC_API/JSON-RPC_API/" class="btn btn-xs btn-default pull-right">
+      <a href="../../JSON-RPC_API/PlatONE_RPC_APIs/" class="btn btn-xs btn-default pull-right">
         Next
         <i class="fa fa-chevron-right" aria-hidden="true"></i>
       </a>
-      <a href="../../JSON-RPC_API/JSON-RPC_API/" class="btn btn-xs btn-link">
-        JSON-RPC API
+      <a href="../../JSON-RPC_API/PlatONE_RPC_APIs/" class="btn btn-xs btn-link">
+        JSON RPC
       </a>
     </div>
     

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>istanbul Namespace - PlatONE</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Istanbul Namespace", url: "#_top", children: [
+              {title: "istanbul_getSnapshot", url: "#istanbul_getsnapshot" },
+              {title: "istanbul_getSnapshotAtHash", url: "#istanbul_getsnapshotathash" },
+              {title: "istanbul_getValidators", url: "#istanbul_getvalidators" },
+              {title: "istanbul_getValidatorsAtHash", url: "#istanbul_getvalidatorsathash" },
+              {title: "istanbul_candidates", url: "#istanbul_candidates" },
+              {title: "istanbul_propose", url: "#istanbul_propose" },
+              {title: "istanbul_discard", url: "#istanbul_discard" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script>
+      <script src="../../mathjax-config.js"></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../PlatONE_admin/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../PlatONE_admin/" class="btn btn-xs btn-link">
+        admin Namespace
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../PlatONE_eth/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../PlatONE_eth/" class="btn btn-xs btn-link">
+        eth Namespace
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="istanbul-namespace">Istanbul Namespace</h1>
+<p>The <code>Istanbul</code> API provides access to the state of the Istanbul consensus engine. You can use this API to ...</p>
+<h2 id="istanbul_getsnapshot">istanbul_getSnapshot</h2>
+<p>Retrieves a snapshot of all Isranbul state at a given block.</p>
+<h3 id="parameters">Parameters</h3>
+<p><code>QUANTITY|TAG</code> - integer block number, or the string <code>"latest"</code>, <code>"earliest"</code> or <code>"pending"</code></p>
+<h3 id="returns">Returns</h3>
+<p><code>Object</code> - A (<strong>TODO</strong>) object, or <code>null</code> when ...:</p>
+<pre class="highlight"><code class="language-go">// Snapshot is the state of the authorization voting at a given point in time.
+type Snapshot struct {
+    Epoch uint64 // The number of blocks after which to checkpoint and reset the pending votes
+
+    Number uint64                   // Block number where the snapshot was created
+    Hash   common.Hash              // Block hash where the snapshot was created
+    Votes  []*Vote                  // List of votes cast in chronological order
+    Tally  map[common.Address]Tally // Current vote tally to avoid recalculating
+    ValSet istanbul.ValidatorSet    // Set of authorized validators at this moment
+}</code></pre>
+
+<h3 id="example">Example</h3>
+<pre class="highlight"><code class="language-js">// Request
+curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getSnapshot","params":["latest"],"id":67}'
+
+// Result
+{
+  "id":67,
+  "jsonrpc": "2.0",
+  "result": {
+      "hash":"0x6302b1ccaa6944c1b4f150a47fc7fb258fd7488b555d2fcd0378d7d3be5a8bc8",
+      "votes":[],
+      "tally":{},
+      "validators":["0x0a86ced495e8d452a52f24e4ff7dd59bb532bd94"],
+      policy:0,
+      epoch:1000,
+      number:7
+  }
+}</code></pre>
+
+<hr />
+<h2 id="istanbul_getsnapshotathash">istanbul_getSnapshotAtHash</h2>
+<p>Retrieves the state snapshot at a given block by block hash.</p>
+<h3 id="parameters_1">Parameters</h3>
+<p><code>DATA</code>, 32 Bytes - hash of a block.</p>
+<h3 id="returns_1">Returns</h3>
+<p>See <a href="#istanbul_getSnapshot">istanbul_getSnapshot</a></p>
+<h3 id="example_1">Example</h3>
+<pre class="highlight"><code class="language-js">// Request
+curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getSnapshotAtHash","params":["0xa844c6edeb614fca5bb9ca9ef05d978a8732858aabede9ceed32bbf5d3cf3a53"],"id":67}'</code></pre>
+
+<p>Result see <a href="#istanbul_getSnapshot">istanbul_getSnapshot</a></p>
+<hr />
+<h2 id="istanbul_getvalidators">istanbul_getValidators</h2>
+<p>Retrieves the list of validators at the specified block.</p>
+<h3 id="parameters_2">Parameters</h3>
+<p><code>QUANTITY|TAG</code> - integer block number, or the string <code>"latest"</code>, <code>"earliest"</code> or <code>"pending"</code></p>
+<h3 id="returns_2">Returns</h3>
+<p><code>Array</code> - the validator set.</p>
+<h3 id="example_2">Example</h3>
+<pre class="highlight"><code class="language-js">// Request
+curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getValidators","params":["latest"],"id":67}'
+
+// Result
+{
+  "id":67,
+  "jsonrpc": "2.0",
+  "result": ["0x0a86ced495e8d452a52f24e4ff7dd59bb532bd94", "0x3bcea1c5eda42c85e8d5fa8e116416e86cec98d0", "0xa5e197d546ede9fb87291ff63a52ec9d3d709257", "0xd4e43fa0703c28132933e428b661d2b92ca7974b"]
+}</code></pre>
+
+<hr />
+<h2 id="istanbul_getvalidatorsathash">istanbul_getValidatorsAtHash</h2>
+<p>Retrieves the list of validators at the specified block by block hash</p>
+<h3 id="parameters_3">Parameters</h3>
+<p><code>DATA</code>, 32 Bytes - hash of a block.</p>
+<h3 id="returns_3">Returns</h3>
+<p>See <a href="#istanbul_getValidators">istanbul_getValidators</a></p>
+<h3 id="example_3">Example</h3>
+<pre class="highlight"><code class="language-js">// Request
+curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getValidatorsAtHash","params":["0xa844c6edeb614fca5bb9ca9ef05d978a8732858aabede9ceed32bbf5d3cf3a53"],"id":67}'</code></pre>
+
+<p>Result see <a href="#istanbul_getValidators">istanbul_getValidators</a></p>
+<hr />
+<h2 id="istanbul_candidates">istanbul_candidates</h2>
+<p>Candidates returns the current candidates the node tries to uphold and vote on.</p>
+<h3 id="parameters_4">Parameters</h3>
+<p>none</p>
+<h3 id="returns_4">Returns</h3>
+<p><code>Map</code> - KEY: the address of candidates, VALUE: <code>BOOLEAN</code>, true for voting on, otherwise false.</p>
+<h3 id="example_4">Example</h3>
+<pre class="highlight"><code class="language-js">// Request
+curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_candidates","params":[],"id":67}'
+
+// Result
+{
+  "id":67,
+  "jsonrpc": "2.0",
+  "result": {}
+}</code></pre>
+
+<hr />
+<h2 id="istanbul_propose">istanbul_propose</h2>
+<p>Propose injects a new authorization candidate that the validator will attempt to push through.</p>
+<h3 id="parameters_5">Parameters</h3>
+<p>none</p>
+<h3 id="returns_5">Returns</h3>
+<p>none</p>
+<h3 id="example_5">Example</h3>
+<pre class="highlight"><code class="language-js">// Request
+curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_propose","params":[],"id":67}'</code></pre>
+
+<hr />
+<h2 id="istanbul_discard">istanbul_discard</h2>
+<p>Discard drops a currently running candidate, stopping the validator from casting further votes (either for or against).</p>
+<h3 id="parameters_6">Parameters</h3>
+<p>none</p>
+<h3 id="returns_6">Returns</h3>
+<p>none</p>
+<h3 id="example_6">Example</h3>
+<pre class="highlight"><code class="language-js">// Request
+curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_discard","params":[],"id":67}'</code></pre>
+
+<hr />
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav pull-right">
+      <a href="../PlatONE_admin/" class="btn btn-xs btn-default pull-right">
+        Next
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <a href="../PlatONE_admin/" class="btn btn-xs btn-link">
+        admin Namespace
+      </a>
+    </div>
+    
+    <div class="wm-article-nav">
+      <a href="../PlatONE_eth/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../PlatONE_eth/" class="btn btn-xs btn-link">
+        eth Namespace
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
