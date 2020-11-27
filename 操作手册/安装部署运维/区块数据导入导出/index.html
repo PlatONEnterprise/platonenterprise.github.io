@@ -65,29 +65,26 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 
     <h2 id="export-import">export import 演示</h2>
 <h2 id="_1">起四个节点的链</h2>
-<pre class="highlight"><code class="language-shell">./platonectl.sh four
+<pre class="codehilite"><code class="language-shell">./platonectl.sh four
 
 # 此时经过部署一系列系统合约，区块高度已经到达15</code></pre>
-
 <h2 id="export">停节点，并export指定区块的数据</h2>
-<pre class="highlight"><code># 停掉进程
+<pre class="codehilite"><code># 停掉进程
 ./platonectl.sh stop -a
 
 # export指定区块数据，比如此处导出0~14区块数据
 cd ../bin
 
 ./platone export --datadir ../data/node-0/  block-0-14.data 0 14</code></pre>
-
 <h2 id="genesis">清掉四个节点的数据目录，并根据已有的genesis初始化链</h2>
-<pre class="highlight"><code class="language-shell">rm -rf  ../data/node-*/platone/*
+<pre class="codehilite"><code class="language-shell">rm -rf  ../data/node-*/platone/*
 
 ./platone init --datadir ../data/node-0 ../conf/genesis.json
 ./platone init --datadir ../data/node-1 ../conf/genesis.json
 ./platone init --datadir ../data/node-2 ../conf/genesis.json
 ./platone init --datadir ../data/node-3 ../conf/genesis.json</code></pre>
-
 <h2 id="_2">导入第二步生成的区块数据</h2>
-<pre class="highlight"><code># 给节点0导入数据
+<pre class="codehilite"><code># 给节点0导入数据
 ./platone import --datadir ../data/node-0 block-0-14.data
 
 # 然后启动节点0

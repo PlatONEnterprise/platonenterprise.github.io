@@ -223,7 +223,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>IstabulExtra结构的类型定义如下：</p>
 </li>
 </ul>
-<p><pre class="highlight"><code class="language-go">  type IstanbulExtra struct {
+<p><pre class="codehilite"><code class="language-go">  type IstanbulExtra struct {
   Validators    []common.Address    //Validator addresses
   Seal          []byte          //Proposer seal 65 bytes
   CommittedSeal [][]byte            //Committed seal, 65 * len(Validators) bytes

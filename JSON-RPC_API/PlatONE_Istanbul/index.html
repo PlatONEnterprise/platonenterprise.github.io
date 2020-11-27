@@ -97,7 +97,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p><code>QUANTITY|TAG</code> - integer block number, or the string <code>"latest"</code>, <code>"earliest"</code> or <code>"pending"</code></p>
 <h3 id="returns">Returns</h3>
 <p><code>Object</code> - A (<strong>TODO</strong>) object, or <code>null</code> when ...:</p>
-<pre class="highlight"><code class="language-go">// Snapshot is the state of the authorization voting at a given point in time.
+<pre class="codehilite"><code class="language-go">// Snapshot is the state of the authorization voting at a given point in time.
 type Snapshot struct {
     Epoch uint64 // The number of blocks after which to checkpoint and reset the pending votes
 
@@ -107,9 +107,8 @@ type Snapshot struct {
     Tally  map[common.Address]Tally // Current vote tally to avoid recalculating
     ValSet istanbul.ValidatorSet    // Set of authorized validators at this moment
 }</code></pre>
-
 <h3 id="example">Example</h3>
-<pre class="highlight"><code class="language-js">// Request
+<pre class="codehilite"><code class="language-js">// Request
 curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getSnapshot","params":["latest"],"id":67}'
 
 // Result
@@ -126,7 +125,6 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getSnapshot","params":[
       number:7
   }
 }</code></pre>
-
 <hr />
 <h2 id="istanbul_getsnapshotathash">istanbul_getSnapshotAtHash</h2>
 <p>Retrieves the state snapshot at a given block by block hash.</p>
@@ -135,9 +133,8 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getSnapshot","params":[
 <h3 id="returns_1">Returns</h3>
 <p>See <a href="#istanbul_getSnapshot">istanbul_getSnapshot</a></p>
 <h3 id="example_1">Example</h3>
-<pre class="highlight"><code class="language-js">// Request
+<pre class="codehilite"><code class="language-js">// Request
 curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getSnapshotAtHash","params":["0xa844c6edeb614fca5bb9ca9ef05d978a8732858aabede9ceed32bbf5d3cf3a53"],"id":67}'</code></pre>
-
 <p>Result see <a href="#istanbul_getSnapshot">istanbul_getSnapshot</a></p>
 <hr />
 <h2 id="istanbul_getvalidators">istanbul_getValidators</h2>
@@ -147,7 +144,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getSnapshotAtHash","par
 <h3 id="returns_2">Returns</h3>
 <p><code>Array</code> - the validator set.</p>
 <h3 id="example_2">Example</h3>
-<pre class="highlight"><code class="language-js">// Request
+<pre class="codehilite"><code class="language-js">// Request
 curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getValidators","params":["latest"],"id":67}'
 
 // Result
@@ -156,7 +153,6 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getValidators","params"
   "jsonrpc": "2.0",
   "result": ["0x0a86ced495e8d452a52f24e4ff7dd59bb532bd94", "0x3bcea1c5eda42c85e8d5fa8e116416e86cec98d0", "0xa5e197d546ede9fb87291ff63a52ec9d3d709257", "0xd4e43fa0703c28132933e428b661d2b92ca7974b"]
 }</code></pre>
-
 <hr />
 <h2 id="istanbul_getvalidatorsathash">istanbul_getValidatorsAtHash</h2>
 <p>Retrieves the list of validators at the specified block by block hash</p>
@@ -165,9 +161,8 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getValidators","params"
 <h3 id="returns_3">Returns</h3>
 <p>See <a href="#istanbul_getValidators">istanbul_getValidators</a></p>
 <h3 id="example_3">Example</h3>
-<pre class="highlight"><code class="language-js">// Request
+<pre class="codehilite"><code class="language-js">// Request
 curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getValidatorsAtHash","params":["0xa844c6edeb614fca5bb9ca9ef05d978a8732858aabede9ceed32bbf5d3cf3a53"],"id":67}'</code></pre>
-
 <p>Result see <a href="#istanbul_getValidators">istanbul_getValidators</a></p>
 <hr />
 <h2 id="istanbul_candidates">istanbul_candidates</h2>
@@ -177,7 +172,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_getValidatorsAtHash","p
 <h3 id="returns_4">Returns</h3>
 <p><code>Map</code> - KEY: the address of candidates, VALUE: <code>BOOLEAN</code>, true for voting on, otherwise false.</p>
 <h3 id="example_4">Example</h3>
-<pre class="highlight"><code class="language-js">// Request
+<pre class="codehilite"><code class="language-js">// Request
 curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_candidates","params":[],"id":67}'
 
 // Result
@@ -186,7 +181,6 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_candidates","params":[]
   "jsonrpc": "2.0",
   "result": {}
 }</code></pre>
-
 <hr />
 <h2 id="istanbul_propose">istanbul_propose</h2>
 <p>Propose injects a new authorization candidate that the validator will attempt to push through.</p>
@@ -195,9 +189,8 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_candidates","params":[]
 <h3 id="returns_5">Returns</h3>
 <p>none</p>
 <h3 id="example_5">Example</h3>
-<pre class="highlight"><code class="language-js">// Request
+<pre class="codehilite"><code class="language-js">// Request
 curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_propose","params":[],"id":67}'</code></pre>
-
 <hr />
 <h2 id="istanbul_discard">istanbul_discard</h2>
 <p>Discard drops a currently running candidate, stopping the validator from casting further votes (either for or against).</p>
@@ -206,9 +199,8 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_propose","params":[],"i
 <h3 id="returns_6">Returns</h3>
 <p>none</p>
 <h3 id="example_6">Example</h3>
-<pre class="highlight"><code class="language-js">// Request
+<pre class="codehilite"><code class="language-js">// Request
 curl -X POST --data '{"jsonrpc":"2.0","method":"istanbul_discard","params":[],"id":67}'</code></pre>
-
 <hr />
 
   <br>

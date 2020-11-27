@@ -168,13 +168,11 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>头部和段数据是一个WebAssembly模块二进制文件最外层的结构。头部标识WebAssembly模块和版本信息，段数据则是保存各种模块数据。</p>
 <h4 id="231">2.3.1. 头部</h4>
 <p>WebAssembly以模块为基本单元，而最简单的模块可以没有任何代码：</p>
-<pre class="highlight"><code>(module)</code></pre>
-
+<pre class="codehilite"><code>(module)</code></pre>
 <p>用wat2wasm工具将上述WebAssembly汇编代码编译为二进制模块：</p>
-<pre class="highlight"><code>$ wat2wasm -v program.wat
+<pre class="codehilite"><code>$ wat2wasm -v program.wat
 0000000: 0061 736d                                 ; WASM_BINARY_MAGIC
 0000004: 0100 0000                                 ; WASM_BINARY_VERSION</code></pre>
-
 <p>开头的4字节分别为0x00、0x61、0x73、0x6d对应的ASCII码为<code>\0asm</code>字符串魔数。后面的4字节则是当前WebAssembly文件的版本，目前只有版本1。</p>
 <h4 id="232">2.3.2. 段类型列表</h4>
 <p>模块主体由多个段组成，段数据包含了模块段全部信息。WebAssembly规范为每个不同段分配了一个唯一段ID，如下表所示：</p>
@@ -237,14 +235,13 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </tbody>
 </table>
 <p>为了研究段数据段组织方式，我们在模块中添加一个简单的函数：</p>
-<pre class="highlight"><code>(module
+<pre class="codehilite"><code>(module
     (func (result i32)
         i32.const 55
     )
 )</code></pre>
-
 <p>模块中的函数没有输入参数，只返回一个整数常量。我们用wat2wasm命令查看一下生成的二进制数据：</p>
-<pre class="highlight"><code>$ wat2wasm -v demo.wat
+<pre class="codehilite"><code>$ wat2wasm -v demo.wat
 0000000: 0061 736d                                 ; WASM_BINARY_MAGIC
 0000004: 0100 0000                                 ; WASM_BINARY_VERSION
 ; section "Type" (1)
@@ -275,7 +272,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 000001a: 0b                                        ; end
 0000016: 04                                        ; FIXUP func body size
 0000014: 06                                        ; FIXUP section size</code></pre>
-
 <p>忽略模块头部信息，根据注释可以发现二进制模块含有3个段，分别为Type、Function、Code，其中Type段从0000008地址开始，第一个字节01为段ID；Function段从000000f地址开始，第一个字节03为段ID；Code从0000013开始，第一个字节0a为段ID。每个段ID的后面跟着的是后续段数据的长度。</p>
 <p>段结构的二进制数据组成方式如下表所示：</p>
 <table>
@@ -526,7 +522,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </tbody>
 </table>
 <p>二进制代码如下：</p>
-<pre class="highlight"><code>; section "Export" (7)
+<pre class="codehilite"><code>; section "Export" (7)
 0000015: 07                                        ; section code
 0000016: 00                                        ; section size (guess)
 0000017: 01                                        ; num exports
@@ -535,7 +531,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 0000021: 00                                        ; export kind
 0000022: 00                                        ; export func index
 0000016: 0c                                        ; FIXUP section size</code></pre>
-
 <h4 id="252-code">2.5.2. Code段</h4>
 <p>Code段的二进制如下：</p>
 <table>
@@ -619,7 +614,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </tbody>
 </table>
 <p>二进制如下：</p>
-<pre class="highlight"><code>; section "Code" (10)
+<pre class="codehilite"><code>; section "Code" (10)
 0000023: 0a                                        ; section code
 0000024: 00                                        ; section size (guess)
 0000025: 01                                        ; num functions
@@ -634,7 +629,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 000002d: 0b                                        ; end
 0000026: 07                                        ; FIXUP func body size
 0000024: 09                                        ; FIXUP section size</code></pre>
-
 <h3 id="26">2.6. 参考资料</h3>
 <ol>
 <li>https://webassembly.github.io/spec/core/appendix/index-instructions.html</li>

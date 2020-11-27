@@ -141,7 +141,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <h1 id="systemcontract">SystemContract</h1>
 <h2 id="1cnsmanager">1.cnsManager</h2>
 <p>各个系统合约在本合约注册，用一个map保存各个合约的地址、合约名称、版本信息。</p>
-<pre class="highlight"><code class="language-c++">struct ContractInfo
+<pre class="codehilite"><code class="language-c++">struct ContractInfo
 {
     std::string name;    // 注册合约名
     std::string version; // 1.0.0.0
@@ -151,7 +151,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     bool enabled;        // CNS服务是否激活
     BCWASM_SERIALIZE(ContractInfo, (name)(version)(address)(origin)(create_time)(enabled));
 };</code></pre>
-
 <h3 id="11-cnsregisterfrominit">1.1.注册合约 | cnsRegisterFromInit</h3>
 <p><strong>int cnsRegisterFromInit(const char <em>name, const char </em>version)</strong></p>
 <p>将已经部署的合约注册到本合约的中存储。保存所有的历史版本。</p>
@@ -342,7 +341,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </blockquote>
 <h2 id="2userregister">2.userRegister</h2>
 <p>申请用户指的是，用户将个人的账户地址、用户名称、电话、邮箱、个人说明，向合约发起申请，合约保存信息。</p>
-<pre class="highlight"><code class="language-c++">    struct RegisterInfo {
+<pre class="codehilite"><code class="language-c++">    struct RegisterInfo {
         std::string user_address;     // 用户账户地址
         std::string name;             // 用户名称
         std::string mobile;           // 手机号
@@ -353,7 +352,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     //  std::string roles;            // 角色请求列表
         std::vector&lt;string&gt; roles;   // 角色请求列表
     };</code></pre>
-
 <h3 id="21-registeruser">2.1.添加用户申请信息 | registerUser</h3>
 <p><strong>int registerUser(const char* registJson)</strong></p>
 <ul>
@@ -373,8 +371,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </ul>
 </blockquote>
 <p>Json字符串参考格式如下：</p>
-<pre class="highlight"><code class="language-json">'{"address":"0x33d253386582f38c66cb5819bfbdaad0910339b3","name":"xiaoluo","mobile":"13111111111","email":"luodahui@qq.com","roles":["a","b","c"],"remark":"平台用户申请"}'</code></pre>
-
+<pre class="codehilite"><code class="language-json">'{"address":"0x33d253386582f38c66cb5819bfbdaad0910339b3","name":"xiaoluo","mobile":"13111111111","email":"luodahui@qq.com","roles":["a","b","c"],"remark":"平台用户申请"}'</code></pre>
 <h3 id="22-approve">2.2.审核 | approve</h3>
 <p><strong>int approve(const char* userAddress, int auditStatus)</strong></p>
 <ul>
@@ -406,11 +403,9 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <ul>
 <li>const char* 返回json格式字符串，格式如下：</li>
 </ul>
-<pre class="highlight"><code class="language-json">'{"code":0,"msg":"succeed","data":{ ....}}'</code></pre>
-
+<pre class="codehilite"><code class="language-json">'{"code":0,"msg":"succeed","data":{ ....}}'</code></pre>
 <p>如果用户申请不存在，返回错误信息：</p>
-<pre class="highlight"><code class="language-json">'{"code":1,"msg":"The user does not exist in the userRegisterManager", "data":""}'</code></pre>
-
+<pre class="codehilite"><code class="language-json">'{"code":1,"msg":"The user does not exist in the userRegisterManager", "data":""}'</code></pre>
 </blockquote>
 <h3 id="24-getaccountbyusername">2.4.查询账户信息 | getAccountByUsername</h3>
 <p><strong>const char<em> getAccountByUsername(const char</em> UserName) const</strong></p>
@@ -423,11 +418,9 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <ul>
 <li>const char* 返回json格式字符串，格式如下：</li>
 </ul>
-<pre class="highlight"><code class="language-json">'{"code":0,"msg":"succeed","data":{ ....}}'</code></pre>
-
+<pre class="codehilite"><code class="language-json">'{"code":0,"msg":"succeed","data":{ ....}}'</code></pre>
 <p>如果用户申请不存在，返回错误信息：</p>
-<pre class="highlight"><code class="language-json">'{"code":1,"msg":"The user does not exist in the userRegisterManager", "data":""}'</code></pre>
-
+<pre class="codehilite"><code class="language-json">'{"code":1,"msg":"The user does not exist in the userRegisterManager", "data":""}'</code></pre>
 </blockquote>
 <h3 id="25-getaccountsbystatus">2.5.分页查询某状态的用户 | getAccountsByStatus</h3>
 <p><strong>const char* getAccountsByStatus(int pageNum, int pageSize, int accountStatus) const</strong></p>
@@ -442,30 +435,26 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <ul>
 <li>const char* 返回json格式字符串，格式如下：</li>
 </ul>
-<pre class="highlight"><code class="language-json">'{"code":0,"msg":"succeed","data":{ ....}}'</code></pre>
-
+<pre class="codehilite"><code class="language-json">'{"code":0,"msg":"succeed","data":{ ....}}'</code></pre>
 <p>错误输出：</p>
-<pre class="highlight"><code class="language-c++"> unsigned int  startIndex = pageNum * pageSize;
+<pre class="codehilite"><code class="language-c++"> unsigned int  startIndex = pageNum * pageSize;
  unsigned int endIndex = startIndex + pageSize - 1;
        if (startIndex &gt;= size) 
            {
                code = "1";
              message = "Adjust pageNum and pageSize";
             }</code></pre>
-
-<pre class="highlight"><code class="language-c++"> {
+<pre class="codehilite"><code class="language-c++"> {
           //  bcwasm::println("状态用户不存在：[", accountStatus, "],请检查");
                  code = "2";
                 message = "The user status for the query does not exist in the UserRegister";
                  userInfos = "\"\"";
    }</code></pre>
-
-<pre class="highlight"><code class="language-c++">  {
+<pre class="codehilite"><code class="language-c++">  {
                  code = "3";
                  message = "user information is empty in the UserRegister";
                   userInfos = "\"\"";
  }</code></pre>
-
 </blockquote>
 <h3 id="26-getstatusbyaddress">2.6.查询用户状态 | getStatusByAddress</h3>
 <p><strong>int getStatusByAddress(const char* address) const</strong> </p>
@@ -481,7 +470,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </blockquote>
 <h2 id="3usermanager">3.userManager</h2>
 <p>用来管理平台用户的邮箱，手机号及用户状态。</p>
-<pre class="highlight"><code class="language-c++">    struct UserInfo
+<pre class="codehilite"><code class="language-c++">    struct UserInfo
     {
         string user_address;    // 用户地址
         string name;//用户名称 
@@ -489,7 +478,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
        string mobile; //手机号
         unsigned int status;        // 是否禁用用户：[0:可用; 1:禁用; 2:删除] 
     };</code></pre>
-
 <h3 id="31-adduser">3.1.添加用户 | addUser</h3>
 <p><strong>int addUser(const char* userJson)</strong></p>
 <ul>
@@ -506,8 +494,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </ul>
 </blockquote>
 <p>Json字符串参考格式如下：</p>
-<pre class="highlight"><code class="language-json">'{"address":"0x33d253386582f38c66cb5819bfbdaad0910339b3","name":"xiaoluo","mobile":"13111111111","email":"luodahui@qq.com","roles":["a","b","c"],"remark":"平台用户申请"}'</code></pre>
-
+<pre class="codehilite"><code class="language-json">'{"address":"0x33d253386582f38c66cb5819bfbdaad0910339b3","name":"xiaoluo","mobile":"13111111111","email":"luodahui@qq.com","roles":["a","b","c"],"remark":"平台用户申请"}'</code></pre>
 <h3 id="32-enable">3.2.设置用户可用 | enable</h3>
 <p><strong>int enable(const char* userAddr)</strong></p>
 <ul>
@@ -614,15 +601,14 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <ul>
 <li>const char* 返回json格式字符串，格式如下：</li>
 </ul>
-<pre class="highlight"><code class="language-json">'{"code":0,"msg":"succeed","data":{ ....}}'</code></pre>
-
+<pre class="codehilite"><code class="language-json">'{"code":0,"msg":"succeed","data":{ ....}}'</code></pre>
 <p>​  如果用户申请不存在，返回错误信息：</p>
-<p><pre class="highlight"><code class="language-json"> '{"code":1,"msg":"The user does not exist in the userRegisterManager", "data":""}'</code></pre>
+<p><pre class="codehilite"><code class="language-json"> '{"code":1,"msg":"The user does not exist in the userRegisterManager", "data":""}'</code></pre>
 </p>
 </blockquote>
 <h2 id="4roleregister">4.roleRegister</h2>
 <p>用以申请角色、审批角色、以及查询角色申请信息。</p>
-<pre class="highlight"><code class="language-c++"> typedef struct RegisterUserInfo {
+<pre class="codehilite"><code class="language-c++"> typedef struct RegisterUserInfo {
        std::string userAddress;       //账户地址
         std::string userName;            //用户名
         int roleRequireStatus;  //角色申请状态 1 申请中 2 已批准 3 已拒绝
@@ -630,7 +616,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
         std::string approver;         //审核人的地址
         BCWASM_SERIALIZE(RegisterUserInfo, (userAddress)(userName)(roleRequireStatus)(requireRoles)(approver));
     }RegisterUserInfo_st;</code></pre>
-
 <p>具体角色及权限请参照PlatONE合约指导文档。</p>
 <h3 id="41-registerrole">4.1.注册角色 | registerRole</h3>
 <p><strong>int registerRole(const char* roles)</strong> </p>
@@ -682,7 +667,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </ul>
 </blockquote>
 <p>output返回格式如下：</p>
-<pre class="highlight"><code class="language-json">{
+<pre class="codehilite"><code class="language-json">{
     code: 0,
     msg: "ok",
     data: {
@@ -693,15 +678,13 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
         "approveor": "01xxx"
     }
 }</code></pre>
-
 <p>错误输出格式：</p>
-<pre class="highlight"><code class="language-json">{
+<pre class="codehilite"><code class="language-json">{
     code:1,
     msg: "not found",
     data: {
     }
 }</code></pre>
-
 <h3 id="44-getregisterinfobyname">4.4.查询角色申请信息 | getRegisterInfoByName</h3>
 <p>const char * getRegisterInfoByName(const char* name) const</p>
 <blockquote>
@@ -727,7 +710,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </blockquote>
 <h2 id="5rolemanager">5.roleManager</h2>
 <p>用来管理平台用户的角色。</p>
-<pre class="highlight"><code class="language-c++">namespace SystemContract
+<pre class="codehilite"><code class="language-c++">namespace SystemContract
 {
     struct userRole{
         bcwasm::Address address;
@@ -735,7 +718,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
         vector&lt;string&gt; roles;
         BCWASM_SERIALIZE(userRole,(address)(name)(roles));
     };</code></pre>
-
 <h3 id="51-addrole">5.1.添加角色 | addRole</h3>
 <p>int addRole(const char <em>name, const char </em>address, const char *roles)</p>
 <ul>
@@ -785,12 +767,10 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <ul>
 <li>const char* 返回json格式字符串，格式如下：</li>
 </ul>
-<pre class="highlight"><code class="language-json">'{"code":0,"msg":"Success","data":{ ....}}'</code></pre>
-
+<pre class="codehilite"><code class="language-json">'{"code":0,"msg":"Success","data":{ ....}}'</code></pre>
 <p>​ 错误返回如下两种情况：</p>
-<pre class="highlight"><code class="language-json">'{"code":1,"msg":"Address format is invalid.", "data":""}'     
+<pre class="codehilite"><code class="language-json">'{"code":1,"msg":"Address format is invalid.", "data":""}'     
 '{"code":1,"msg":"Not Found", "data":""}'</code></pre>
-
 </blockquote>
 <h3 id="54-getrolesbyname">5.4.查询角色 | getRolesByName</h3>
 <p>const char<em> getRolesByName(const char </em>name)const</p>
@@ -803,11 +783,9 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <ul>
 <li>const char* 返回json格式字符串，格式如下：</li>
 </ul>
-<pre class="highlight"><code class="language-json">'{"code":0,"msg":"Success","data":{ ....}}'</code></pre>
-
+<pre class="codehilite"><code class="language-json">'{"code":0,"msg":"Success","data":{ ....}}'</code></pre>
 <p>​ 错误返回如下：</p>
-<pre class="highlight"><code class="language-json">'{"code":1,"msg":"Not Found", "data":""}'</code></pre>
-
+<pre class="codehilite"><code class="language-json">'{"code":1,"msg":"Not Found", "data":""}'</code></pre>
 </blockquote>
 <h3 id="55-getaccountsbyrole">5.5.查询账户 | getAccountsByRole</h3>
 <p>const char<em> getAccountsByRole(const char </em>role)const</p>
@@ -820,12 +798,10 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <ul>
 <li>const char* 返回json格式字符串，格式如下：</li>
 </ul>
-<pre class="highlight"><code class="language-json">'{"code":0,"msg":"Success","data":{ ....}}'</code></pre>
-
+<pre class="codehilite"><code class="language-json">'{"code":0,"msg":"Success","data":{ ....}}'</code></pre>
 <p>​ 错误返回如下：</p>
-<pre class="highlight"><code class="language-json">'{"code":1,"msg":"Not Found", "data":""}'
+<pre class="codehilite"><code class="language-json">'{"code":1,"msg":"Not Found", "data":""}'
 '{"code":1,"msg":"role parameter invalid", "data":""}'</code></pre>
-
 </blockquote>
 <h3 id="56-hasrole">5.6.是否有角色 | hasRole</h3>
 <p>int hasRole(const char<em> addr, const char</em> role) const</p>
@@ -841,7 +817,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </ul>
 </blockquote>
 <h2 id="6noderegister">6.nodeRegister</h2>
-<pre class="highlight"><code class="language-c++">struct RegisterInfo
+<pre class="codehilite"><code class="language-c++">struct RegisterInfo
 {
     std::string name;      //节点名称
     std::string owner;     //申请者的地址
@@ -858,7 +834,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     int64_t registerTime; //申请时间
     BCWASM_SERIALIZE(RegisterInfo, (name)(owner)(desc)(type)(publicKey)(externalIP)(internalIP)(rpcPort)(p2pPort)(status)(root)(approver)(registerTime));
 };</code></pre>
-
 <h3 id="61-registernode">6.1.注册节点信息 | registerNode</h3>
 <p>int registerNode(const char *nodeJson)</p>
 <ul>
@@ -872,7 +847,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <blockquote>
 <p>inputs: </p>
 <p>RegisterInfo是Json字符串，包含以下内容：</p>
-<pre class="highlight"><code class="language-json">'{
+<pre class="codehilite"><code class="language-json">'{
     "name":"node1",
     "desc":"i love this world",
     "type":1,
@@ -882,7 +857,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     "rpcPort":4789,
     "p2pPort":14789
 }'</code></pre>
-
 <p>output: int</p>
 <p>​ 0   成功</p>
 <p>​ 1   参数不规范</p>
@@ -917,7 +891,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <li>pageSize：每页显示条目数</li>
 </ul>
 <p>output: </p>
-<pre class="highlight"><code class="language-json">{
+<pre class="codehilite"><code class="language-json">{
     "code":0,
     "msg":"",
     "data":{
@@ -933,22 +907,19 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
         "registerTime":23489723
     }
 }</code></pre>
-
 <p>错误输出格式：</p>
-<pre class="highlight"><code class="language-json">{
+<pre class="codehilite"><code class="language-json">{
     code:1,
     msg: "Can't find info",
     data: {
     }
 }</code></pre>
-
-<pre class="highlight"><code class="language-json">{
+<pre class="codehilite"><code class="language-json">{
     code:2,
     msg: "Parameter error!",
     data: {
     }
 }</code></pre>
-
 </blockquote>
 <h3 id="64-getregisterinfobypublickey">6.4.获取申请信息 | getRegisterInfoByPublicKey</h3>
 <p>const char <em>getRegisterInfoByPublicKey(char </em>publicKey) const</p>
@@ -969,7 +940,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>output:  返回Json字符串</p>
 </blockquote>
 <h2 id="7nodemanager">7.nodeManager</h2>
-<pre class="highlight"><code class="language-c++">//此结构体已注释掉，代码部分不是通过结构体方式定义以下变量
+<pre class="codehilite"><code class="language-c++">//此结构体已注释掉，代码部分不是通过结构体方式定义以下变量
 {
     string name;       // 节点名字
     address owner;     // 申请者的地址
@@ -984,7 +955,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     address approveor; // 审核人的地址
     int delayNum;      // 共识节点延迟设置的区块高度 (可选, 默认实时设置)
 }</code></pre>
-
 <h3 id="71-add">7.1.添加节点信息 | add</h3>
 <p>int add(const char *nodeJsonStr)</p>
 <ul>
@@ -1000,7 +970,7 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <ul>
 <li>nodeJsonStr 节点信息JSON结构体字符串，如：</li>
 </ul>
-<pre class="highlight"><code class="language-json">'{
+<pre class="codehilite"><code class="language-json">'{
     "name": "node1",
     "owner": "0x4FCd6fe35f0612C7866943cb66C1d93eb0746bcC",
     "approveor": "0xdF6518e51e0d90A3CBa26e4AdFE74454E2D90BdE",
@@ -1013,7 +983,6 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
     "p2pPort": 16789,
     "status": 1
 }'</code></pre>
-
 <p>output: int</p>
 <p>​ 0   成功</p>
 <p>​ 1   参数不规范</p>
@@ -1025,12 +994,11 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>inputs: 无</p>
 <p>outputs：</p>
 <p>​ nodes 所有节点信息JSON结构体字符串</p>
-<pre class="highlight"><code class="language-json">{
+<pre class="codehilite"><code class="language-json">{
   "code": 0,
   "msg": "success",
   "data": [...]
            }</code></pre>
-
 </blockquote>
 <h3 id="73-getnodes">7.3.查询节点信息 | getNodes</h3>
 <p>const char <em>getNodes(const char </em>nodeJsonStr) const</p>
@@ -1039,12 +1007,11 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>​ 根据特定条件，返回符合条件的节点信息。比如，我需要查询节点的名字为"node1"的节点信息，那么传入字符串 {"name":"node1"}；如果需要查询所有正常节点，那么传入字符串{"status":1}；如果我需要返回正常节点而且是共识节点，那么传入字符串{"status":1, "type":1}。总之，你可以根据节点信息可多个组合进行查询。</p>
 <p>outputs：</p>
 <p>​ nodes 所有符合条件的节点信息JSON结构体字符串</p>
-<pre class="highlight"><code class="language-json">{
+<pre class="codehilite"><code class="language-json">{
   "code": 0,
   "msg": "success",
   "data": [...]
            }</code></pre>
-
 </blockquote>
 <h3 id="74-nodesnum">7.4.符合条件节点个数 | nodesNum</h3>
 <p>int nodesNum(const char *nodeJsonStr) const</p>

@@ -234,7 +234,7 @@ account命令:</li>
 <p><strong>关系图</strong>：</p>
 </li>
 </ul>
-<pre class="highlight"><code class="language-plantuml">rectangle local{
+<pre class="codehilite"><code class="language-plantuml">rectangle local{
 agent private_key as prk
 database keystore
 agent password
@@ -299,7 +299,6 @@ package state_root{
 transfer -&gt; EOA
 register -&gt; 用户user
 deploy -&gt; contract_account</code></pre>
-
 <h2 id="template">模板 Template</h2>
 <ul>
 <li><strong>描述</strong>：</li>
@@ -331,7 +330,7 @@ deploy -&gt; contract_account</code></pre>
 <li>用于存储部分全局选项对应的值，以减少用户重复输入。</li>
 <li>每次程序启动都会读取配置文件中的值并赋值到<code>config</code>对象中</li>
 </ul>
-<pre class="highlight"><code class="language-json">config.json (template)
+<pre class="codehilite"><code class="language-json">config.json (template)
 {
   "url":"http://NODE-IP:RPC-PORT",
   "keystore":"DEFAULT_KEYSTORE_FILE",
@@ -341,7 +340,6 @@ deploy -&gt; contract_account</code></pre>
   // "gas":"0x0",
   // "gasPrice":"0x0",
 }</code></pre>
-
 <h3 id="02">0.2 账户地址选择</h3>
 <ul>
 <li><strong>描述</strong>：使用本地账户地址发送交易，对应的RPC调用方式则为<code>eth_sendRawTransaction</code>。选择远程节点存储的账户地址发送交易，对应的RPC调用方式则为<code>eth_sendTransaction</code>。</li>
@@ -382,9 +380,8 @@ deploy -&gt; contract_account</code></pre>
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;to&gt;:         收款方账户地址
+<pre class="codehilite"><code class="language-param">&lt;to&gt;:         收款方账户地址
 &lt;value&gt;:      转账金额，单位（暂无）</code></pre>
-
 <ul>
 <li>
 <p><strong>操作</strong>：
@@ -394,28 +391,26 @@ deploy -&gt; contract_account</code></pre>
 <p>重构前：</p>
 </li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 通过sendTransaction方式:
+<pre class="codehilite"><code class="language-bash"># 通过sendTransaction方式:
 ctool transfer --from "0xb239401ecf8427f17c6de134d6a6bddd3100251f" --to "0X123" --value "10"
 
 # 通过sendRawTransaction方式:
 ctool transfer --from --to --value --pk
 // --pk (deprecated): private key file. If the argument is null, read from default path (./test/privateKeys.txt).</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 通过sendTransaction方式
+<pre class="codehilite"><code class="language-bash"># 通过sendTransaction方式
 ctool account transfer "0X123" "10"
 ## 指定发送交易账户
 ctool account transfer "0X123" "10" --account "0xb239401ecf8427f17c6de134d6a6bddd3100251f"
 
 # 通过sendRawTransaction方式发送
 ctool account transfer "0X123" "10" --keystore "keystore.json"</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 操作成功
+<pre class="codehilite"><code class="language-bash"># 操作成功
 ## 同步查询
 result: Operation Succeeded
 ## 异步查询
@@ -432,7 +427,6 @@ Fatal: send Transaction through http error: execute eth_sendTransaction rpc call
 
 ## 通过sendRawTransaction方式
 略</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -444,30 +438,27 @@ Fatal: send Transaction through http error: execute eth_sendTransaction rpc call
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;account&gt;：      用户账户地址
+<pre class="codehilite"><code class="language-param">&lt;account&gt;：      用户账户地址
 &lt;name&gt;：         用户名
 &lt;tel&gt;：          用户电话信息
 &lt;email&gt;：        用户邮箱信息</code></pre>
-
 <ul>
 <li>可选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--roles array&lt;string&gt;:  申请注册的一个或多个角色名，格式为"["&lt;role&gt;"]"或者"["&lt;role1&gt;",...,"&lt;role3&gt;"]"
+<pre class="codehilite"><code class="language-param">--roles array&lt;string&gt;:  申请注册的一个或多个角色名，格式为"["&lt;role&gt;"]"或者"["&lt;role1&gt;",...,"&lt;role3&gt;"]"
 --remark string:        用户备注信息</code></pre>
-
 <ul>
 <li><strong>操作</strong>：
 用户注册</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool invoke --addr "0xf7e769f67be5bf06d5712c355e293ef0d4c685fc" --func 'registerUser' --param '{"address":"0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe","name":"xiaoluo","mobile":"13111111111","email":"123@126.com","roles":["chainAdmin"],"remark":"平台用户申请"}' --abi "userRegister/userRegister.cpp.abi.json" --config "cnsManager/user.json"
+<pre class="codehilite"><code class="language-bash">ctool invoke --addr "0xf7e769f67be5bf06d5712c355e293ef0d4c685fc" --func 'registerUser' --param '{"address":"0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe","name":"xiaoluo","mobile":"13111111111","email":"123@126.com","roles":["chainAdmin"],"remark":"平台用户申请"}' --abi "userRegister/userRegister.cpp.abi.json" --config "cnsManager/user.json"
 
 ctool cnsInvoke --cns "__sys_UserRegister" --func 'registerUser({"address":"0xb239401ecf8427f17c6de134d6a6bddd3100251f","name":"Alice","mobile":"13111111111","email":"alice@wx.bc.com","roles":["scDeployer, nodeAdmin"],"remark":"平台用户申请"})' --abi "~/PlatONE-Go/release/linux/conf/contracts/userRegister.cpp.abi.json" --config "../config.json"</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool account register-user "0xb239401ecf8427f17c6de134d6a6bddd3100251f" "Alice" "13111111111" "alice@wx.bc.com"
+<pre class="codehilite"><code class="language-bash">ctool account register-user "0xb239401ecf8427f17c6de134d6a6bddd3100251f" "Alice" "13111111111" "alice@wx.bc.com"
 // 省去填写"__sys_UserRegister"合约名 以及"registerUser"方法名的繁琐步骤
 // 用户需要填写的信息更加明确
 
@@ -477,17 +468,15 @@ ctool account register-user --addr ... ... --roles '["contractDeployer", "nodeAd
 
 ## 用户备注信息
 ctool account register-user --addr ... ... --remark "平台用户申请"</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">  # 成功
+<pre class="codehilite"><code class="language-bash">  # 成功
   ## 同步查询
   result: Operation Succeeded
 
   # 失败
   同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -501,32 +490,28 @@ ctool account register-user --addr ... ... --remark "平台用户申请"</code><
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;roles&gt;:    申请注册的一个或多个角色名，格式为"["&lt;role&gt;"]"或者"["&lt;role1&gt;",...,"&lt;role3&gt;"]"</code></pre>
-
+<pre class="codehilite"><code class="language-param">&lt;roles&gt;:    申请注册的一个或多个角色名，格式为"["&lt;role&gt;"]"或者"["&lt;role1&gt;",...,"&lt;role3&gt;"]"</code></pre>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 角色注册合约地址0xf8f1bec07e2556e6be2371f441f0a1ce9c8b737b
+<pre class="codehilite"><code class="language-bash"># 角色注册合约地址0xf8f1bec07e2556e6be2371f441f0a1ce9c8b737b
 ctool invoke --addr " " --func 'registerRole' --param '["nodeAdmin"]' --abi "roleRegister/roleRegister.cpp.abi.json" --config "cnsManager/user.json"
 
 ctool cnsInvoke --cns "__sys_RoleRegister" --func 'registerRole("["nodeAdmin"]")' --abi "~/PlatONE-Go/release/linux/conf/contracts/roleRegister.cpp.abi.json" --config "../config.json"</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool account register-roles --roles ["nodeAdmin"]</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool account register-roles --roles ["nodeAdmin"]</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">  # 成功
+<pre class="codehilite"><code class="language-bash">  # 成功
   ## 同步查询
   result: OK: [RoleRegister] [registerRole] Register success
 
   # 失败
   同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -557,30 +542,27 @@ ctool cnsInvoke --cns "__sys_RoleRegister" --func 'registerRole("["nodeAdmin"]")
 <p>重构前:</p>
 </li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool cnsInvoke --cns "__sys_UserManager" --func 'update("0xb239401ecf8427f17c6de134d6a6bddd3100251f",{"address":"0x08e7988e60ab5aa49d1f7aa9435ac91b9fcf772c","name":"Alice","mobile":"1312222","email":"123@qq.com","status":0})' --abi "~/PlatONE-Go/release/linux/conf/contracts/userManager.cpp.abi.jso" --config "../config.json"
+<pre class="codehilite"><code class="language-bash">ctool cnsInvoke --cns "__sys_UserManager" --func 'update("0xb239401ecf8427f17c6de134d6a6bddd3100251f",{"address":"0x08e7988e60ab5aa49d1f7aa9435ac91b9fcf772c","name":"Alice","mobile":"1312222","email":"123@qq.com","status":0})' --abi "~/PlatONE-Go/release/linux/conf/contracts/userManager.cpp.abi.jso" --config "../config.json"
 // 输入参数有问题?</code></pre>
-
 <ul>
 <li>重构后:</li>
 </ul>
-<pre class="highlight"><code class="language-bash">
+<pre class="codehilite"><code class="language-bash">
 # optional flags：
 ## 修改用户电话
 ctool account update "0xb239401ecf8427f17c6de134d6a6bddd3100251f" --mobile "1312222"
 
 ## 修改用户邮箱
 ctool account update "0xb239401ecf8427f17c6de134d6a6bddd3100251f" --email "123@qq.com"</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">  # 成功
+<pre class="codehilite"><code class="language-bash">  # 成功
   ## 同步查询
   result: 更新记录成功
 
   # 失败
   同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -598,27 +580,25 @@ ctool account update "0xb239401ecf8427f17c6de134d6a6bddd3100251f" --email "123@q
   用户信息查询，用于用户信息更新。</p>
 </li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;account&gt;:                查询键，通过用户账户地址或账户名称进行查询（返回结果唯一）
+<pre class="codehilite"><code class="language-param">&lt;account&gt;:                查询键，通过用户账户地址或账户名称进行查询（返回结果唯一）
 
 // 未启用
 --name string：           查询键，通过用户账户名进行查询（返回结果唯一）</code></pre>
-
 <ul>
 <li>待商榷参数（暂未实现）：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--status int：            查询键，通过用户状态、注册状态进行查询。用户状态：0有效，1禁用, 2删除。注册状态：1申请中，2已批准，3拒绝
+<pre class="codehilite"><code class="language-param">--status int：            查询键，通过用户状态、注册状态进行查询。用户状态：0有效，1禁用, 2删除。注册状态：1申请中，2已批准，3拒绝
 --roles array&lt;string&gt;：   查询键，通过用户角色进行查询，格式为"["&lt;role&gt;"]"
 --reg string：            辅助选项，通常搭配--status进行使用。参数为"user",即对用户注册表进行查询；参数为"role",即对用户角色注册表进行查询。
 
 --display &lt;num&gt;：         辅助选项，设置查询对象的显示数目。搭配查询键进行使用。若输入显示数目大于实际对象数目，则显示全部查询对象。反之，显示前display条数目，或使用--index进行辅助显示。输入为空或无--display选项时，则返回所有满足条件的查询对象。
 --index &lt;num&gt;:            辅助选项，搭配--display使用，默认为0。显示第display*index条至第display*(index+1)条查询信息，若display*index大于实际对象数目，则忽略--index选项的作用。若实际查询到的对象数目为n, 且display*index&lt;n&lt;display*(index+1),则显示第display*index条至第n条查询信息。</code></pre>
-
 <ul>
 <li><strong>操作</strong>：
 用户信息和用户角色信息分别来自不同系统合约的存储中，重构后我们把用户信息与角色信息在内部进行关联后再反馈给用户。（未实现）</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 1 通过用户账户地址查询用户信息
+<pre class="codehilite"><code class="language-bash"># 1 通过用户账户地址查询用户信息
 ## 步骤1：
 ctool invoke --addr "0x6c990c0f1ae07222c7b7dcb2b68b936d0008ca57" --func 'getAccountByAddress' --param "0xb239401ecf8427f17c6de134d6a6bddd3100251f" --abi "userManager/userManager.cpp.abi.json" --config "cnsManager/config.json"
 ## 步骤2：
@@ -642,11 +622,10 @@ ctool invoke --addr "0x1df9e46ccaf981f993fe26a6eb52a6c3fd7193df" --func 'getAcco
  ## 用户注册表
 
   ## 角色注册表</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 1 通过用户账户地址查询用户信息
+<pre class="codehilite"><code class="language-bash"># 1 通过用户账户地址查询用户信息
 ctool account query "0xb239401ecf8427f17c6de134d6a6bddd3100251f"
 
 # 2 通过用户账户名查询用户信息
@@ -667,11 +646,10 @@ ctool account query --status "1" --reg "user" --display "10" --index "2"
 ## 角色注册表 （暂未实现）
 ctool account query --status "0" --reg "role" --display "10" --index "2"
 // 1 申请中 2 已批准 3 已拒绝</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">// 基于对用户信息保护的目的，返回的数据结构中不包含--tel, --email信息？
+<pre class="codehilite"><code class="language-bash">// 基于对用户信息保护的目的，返回的数据结构中不包含--tel, --email信息？
 
 # 通用格式
 ## 成功
@@ -758,7 +736,6 @@ json&lt;registerUserInfo&gt;
 }
 
 （待补充）</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>
@@ -795,28 +772,25 @@ contract：<code>userRegister</code></li>
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;account&gt;：  查询键，通过用户账户地址或账户名进行状态查询（返回结果唯一）</code></pre>
-
+<pre class="codehilite"><code class="language-param">&lt;account&gt;：  查询键，通过用户账户地址或账户名进行状态查询（返回结果唯一）</code></pre>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 步骤1：
+<pre class="codehilite"><code class="language-bash"># 步骤1：
 userRegister:getStatusByAddress
 ctool cnsInvoke --cns "__sys_UserManager"  --func 'isValidUser("0xb239401ecf8427f17c6de134d6a6bddd3100251f")' --abi "~/PlatONE-Go/release/linux/conf/contracts/userManager.cpp.abi.json" --config "../config.json"
 # 步骤2：userManager: isValidUser
 # 步骤3：roleRegister: getRegisterInfoByAddress/ Name
 # 步骤4：roleManager: getRolesByAddress/ Name</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool account status "0xb239401ecf8427f17c6de134d6a6bddd3100251f"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool account status "0xb239401ecf8427f17c6de134d6a6bddd3100251f"</code></pre>
 <ul>
 <li><strong>输出结果</strong>:</li>
 </ul>
-<pre class="highlight"><code class="language-bash">返回类型：string&lt;status&gt;
+<pre class="codehilite"><code class="language-bash">返回类型：string&lt;status&gt;
 返回以下结果中的其中一个：
 
 # 步骤1：
@@ -840,7 +814,6 @@ result: {
   "msg":"Success",
   "data":["contractDeployer","contractAdmin"]
 }</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_call</code></li>
@@ -860,33 +833,29 @@ contract： <code>userRegister</code></li>
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;codeFile&gt;：      合约编译后得到的二进制代码文件路径</code></pre>
-
+<pre class="codehilite"><code class="language-param">&lt;codeFile&gt;：      合约编译后得到的二进制代码文件路径</code></pre>
 <ul>
 <li>可选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--abi &lt;file&gt;：    合约abi文件路径，部署wasm合约必须提供，部署evm合约不需要提供
+<pre class="codehilite"><code class="language-param">--abi &lt;file&gt;：    合约abi文件路径，部署wasm合约必须提供，部署evm合约不需要提供
 --vm value:       选择进行部署的合约（目前支持evm合约，wasm合约，默认为wasm合约）</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool deploy --abi "appContract/my_contract/my_contract.cpp.abi.json" --code "appContract/my_contract/my_contract.wasm" --config "./config.json"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool deploy --abi "appContract/my_contract/my_contract.cpp.abi.json" --code "appContract/my_contract/my_contract.wasm" --config "./config.json"</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">## wasm合约
+<pre class="codehilite"><code class="language-bash">## wasm合约
 ctool contract deploy "./test/test_case/wasm/contracta.wasm" --abi "./test/test_case/wasm/contracta.cpp.abi.json"
 
 ## evm合约
 ctool contract deploy "./test/test_case/sol/storage_byzantium_065.bin" --vm evm</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功：
+<pre class="codehilite"><code class="language-bash"># 成功：
 ## 同步查询
 result: contract address is 0x2ee8d0545ebd20f9a992ff54cb0f21a153539206
 
@@ -903,7 +872,6 @@ result: contract address is 0x2ee8d0545ebd20f9a992ff54cb0f21a153539206
 4. 交易回执查询失败
   * 查询超时
   * 交易执行失败，状态码为0x0</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -915,30 +883,26 @@ result: contract address is 0x2ee8d0545ebd20f9a992ff54cb0f21a153539206
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;address&gt;:  旧合约账户地址
+<pre class="codehilite"><code class="language-param">&lt;address&gt;:  旧合约账户地址
 &lt;to&gt;:       新合约账户地址</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool migInvoke --addr ${destination_contract_addr} --func 'migrateFrom' --param ${source_contract_addr}  --config ${ctool.json}</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool migInvoke --addr ${destination_contract_addr} --func 'migrateFrom' --param ${source_contract_addr}  --config ${ctool.json}</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool contract migrate ${destination_contract_addr} ${source_contract_addr}</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool contract migrate ${destination_contract_addr} ${source_contract_addr}</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 ## 同步查询
 result: Operation Success
 
 # 失败：
 略</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -952,23 +916,21 @@ result: Operation Success
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;contract&gt;:           合约账户地址或合约名称
+<pre class="codehilite"><code class="language-param">&lt;contract&gt;:           合约账户地址或合约名称
 &lt;function&gt;:           被执行合约的具体方法以及参数，
                       格式&lt;funcname&gt;(&lt;param1&gt;,&lt;param2&gt;)
                       或者&lt;funcname&gt;()。示例：getName()。</code></pre>
-
 <ul>
 <li>可选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--param value:        合约方法的入参，当有多个入参时，一个--param对应一个参数。格式：--param &lt;value1&gt; --param &lt;value2&gt;
+<pre class="codehilite"><code class="language-param">--param value:        合约方法的入参，当有多个入参时，一个--param对应一个参数。格式：--param &lt;value1&gt; --param &lt;value2&gt;
 --abi &lt;file&gt;:         合约abi文件路径。wasm虚拟机合约abi文件未指定时会默认从链上获取(未启用)。evm虚拟机合约执行必须指定abi文件，否则执行出错。
 --vm value:           选择进行执行的合约（目前支持evm合约，wasm合约，默认为wasm合约）</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">
+<pre class="codehilite"><code class="language-bash">
 # 通过合约地址调用合约
 ## 写操作
 ### 形式1
@@ -983,11 +945,10 @@ ctool invoke --addr "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206" --abi "appContr
 # 通过合约名称调用合约（cns服务）
 ctool cnsInvoke --cns "test" --abi "appContract/my_contract/my_contract.cpp.abi.json" --config "./config.json" --func "setName(wxbc)"
 //--cns (deprecated?)</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 通过合约地址调用合约
+<pre class="codehilite"><code class="language-bash"># 通过合约地址调用合约
 ## wasm合约（默认）
 ctool contract execute "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206" "setName(wxbc)"
 ## evm合约
@@ -996,11 +957,10 @@ ctool contract execute ... ... --vm evm
 # 通过合约名称调用合约（cns服务）
 ctool contract execute "test" "setName(wxbc)"
 // 注：evm合约，可以通过CNS注册合约名，但暂时不支持通过合约名称进行合约调用。</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 request json data: %s
 response json: %s
 ## 写操作
@@ -1017,7 +977,6 @@ result: wxbc
 
 # 失败
 略</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code> or <code>eth_call</code></li>
@@ -1029,22 +988,20 @@ result: wxbc
 <li><strong>参数</strong>：</li>
 <li>可选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--contract &lt;string&gt;:  合约账户地址（或者合约名称，尚未实现
+<pre class="codehilite"><code class="language-param">--contract &lt;string&gt;:  合约账户地址（或者合约名称，尚未实现
 --abi &lt;file&gt;:         合约abi文件路径。wasm虚拟机合约abi文件未指定时会默认从链上获取。evm虚拟机合约执行必须指定abi文件，否则执行出错。</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：
   无</li>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 通过abi获取并显示所有合约方法
+<pre class="codehilite"><code class="language-bash"># 通过abi获取并显示所有合约方法
 ctool contract methods --abi "appContract/my_contract/my_contract.cpp.abi.json"
 
 # 通过合约地址获取并显示所有合约方法
 ctool contract methods --contract "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206"
 // 注：前提是该合约地址的abi文件按照对应命名格式存储于./abi文件夹中</code></pre>
-
 <ul>
 <li>
 <p><strong>输出结果</strong>：
@@ -1066,35 +1023,31 @@ Method 2: store(num int32)
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;name&gt;:          在cns中注册的合约名称
+<pre class="codehilite"><code class="language-param">&lt;name&gt;:          在cns中注册的合约名称
 &lt;version&gt;:       在cns中注册的版本号，（补充）。格式："X.X.X.X"
 &lt;address&gt;:       进行注册的合约的账户地址</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool invoke --addr "0x0000000000000000000000000000000000000011" --func 'cnsRegister' --param "test" --param "1.0.0.0" --param "0x08644ba5e0dd71d3d7cbb58913a099c2f3ca403f"  --abi "cnsManager/cnsManager.cpp.abi.json" --config "cnsManager/config.json"
+<pre class="codehilite"><code class="language-bash">ctool invoke --addr "0x0000000000000000000000000000000000000011" --func 'cnsRegister' --param "test" --param "1.0.0.0" --param "0x08644ba5e0dd71d3d7cbb58913a099c2f3ca403f"  --abi "cnsManager/cnsManager.cpp.abi.json" --config "cnsManager/config.json"
 
 "cnsRegister('test', 1.0.0.0, 0x08644ba5e0dd71d3d7cbb58913a099c2f3ca403f)"</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">cns register "test" "1.0.0.0" "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206"
+<pre class="codehilite"><code class="language-bash">cns register "test" "1.0.0.0" "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206"
 // 省去填写cnsProxy合约地址
 // 用户输入参数时更加明确</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 ## 同步查询
 result: cnsRegister succeed!
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -1107,9 +1060,8 @@ result: cnsRegister succeed!
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;name&gt;：        合约在cns中注册的合约名称
+<pre class="codehilite"><code class="language-param">&lt;name&gt;：        合约在cns中注册的合约名称
 &lt;version&gt;:      合约在cns中注册的版本号</code></pre>
-
 <ul>
 <li>可选参数：</li>
 </ul>
@@ -1119,27 +1071,24 @@ result: cnsRegister succeed!
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool invoke --addr "0x0000000000000000000000000000000000000011" --func 'cnsUnregister' --param "test"  --param "1.0.0.0" --abi "~/PlatONE-Go/release/linux/conf/contracts/cnsManager.cpp.abi.json" --config "../config.json"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool invoke --addr "0x0000000000000000000000000000000000000011" --func 'cnsUnregister' --param "test"  --param "1.0.0.0" --abi "~/PlatONE-Go/release/linux/conf/contracts/cnsManager.cpp.abi.json" --config "../config.json"</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 注销最新版本
+<pre class="codehilite"><code class="language-bash"># 注销最新版本
 ctool cns unregister "test"
 
 # 注销指定版本
 ctool cns unregister "test" --ver "1.0.0.0"</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 ## 同步操作
 result: cnsUnregister succeed!
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -1152,41 +1101,36 @@ result: cnsUnregister succeed!
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;name&gt;：          合约在cns中注册的合约名称</code></pre>
-
+<pre class="codehilite"><code class="language-param">&lt;name&gt;：          合约在cns中注册的合约名称</code></pre>
 <ul>
 <li>可选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--ver string:     合约在cns中注册的版本号，默认为"latest"</code></pre>
-
+<pre class="codehilite"><code class="language-param">--ver string:     合约在cns中注册的版本号，默认为"latest"</code></pre>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool invoke --addr "0x0000000000000000000000000000000000000011" --func 'getContractAddress' --param "test" --param "1.0.0.0" --abi "~/PlatONE-Go/release/linux/conf/contracts/cnsManager.cpp.abi.json" --config "../config.json"
+<pre class="codehilite"><code class="language-bash">ctool invoke --addr "0x0000000000000000000000000000000000000011" --func 'getContractAddress' --param "test" --param "1.0.0.0" --abi "~/PlatONE-Go/release/linux/conf/contracts/cnsManager.cpp.abi.json" --config "../config.json"
 
 ctool invoke --addr "0x0000000000000000000000000000000000000011" --func 'getContractAddress' --param "test" --param "1.0.0.0" --abi "cnsManager/cnsManager.cpp.abi.json" --config "cnsManager/config.json"</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 查询最新版本
+<pre class="codehilite"><code class="language-bash"># 查询最新版本
 ctool cns resolve "test"
 
 # 查询指定版本
 ctool cns resolve "test" --ver "1.0.0.0"</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 result: &lt;address&gt;
 ## 对应合约名称的版本已注销
 result: &lt;null&gt;
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_call</code></li>
@@ -1199,7 +1143,7 @@ result: &lt;null&gt;
 <li><strong>参数</strong>：</li>
 <li>可选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--contract &lt;address&gt;: 查询键，通过合约账户地址或者合约名称进行查询
+<pre class="codehilite"><code class="language-param">--contract &lt;address&gt;: 查询键，通过合约账户地址或者合约名称进行查询
 --user &lt;address&gt;：    查询键，通过用户账户地址进行查询，查询该用户注册在cns的合约 // 使用--user体现了PlatONE的权限模型特色
 --all                 查询键，显示所有cns中所有注册的对象（不显示已注销的信息）
 
@@ -1212,17 +1156,15 @@ result: &lt;null&gt;
 --addr &lt;address&gt;:     查询键，通过合约账户地址进行查询（返回结果唯一？？？）
 --name string：       查询键，通过合约名称进行查询（返回结果不唯一）
 </code></pre>
-
 <ul>
 <li>待商榷参数</li>
 </ul>
-<pre class="highlight"><code class="language-param">--status bool:        查询键，通过合约在cns的注册状态进行查询，可能存在的状态：注册中（true）或注销(false)</code></pre>
-
+<pre class="codehilite"><code class="language-param">--status bool:        查询键，通过合约在cns的注册状态进行查询，可能存在的状态：注册中（true）或注销(false)</code></pre>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 1 查询已注册合约 list registered contracts
+<pre class="codehilite"><code class="language-bash"># 1 查询已注册合约 list registered contracts
 ctool invoke --addr "0x0000000000000000000000000000000000000011" --func 'getRegisteredContracts' --param "0" --param "10" --abi "~/PlatONE-Go/release/linux/conf/contracts/cnsManager.cpp.abi.json" --config "../config.json"
 
 # 2 通过名称查询注册历史 get contract history
@@ -1236,11 +1178,10 @@ cnsManager: getContractInfoByAddress
 
 # 5 合约是否注册
 详细见 3.5</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 1 查询已注册的合约
+<pre class="codehilite"><code class="language-bash"># 1 查询已注册的合约
 ctool cns query --all --display "10" --index "0"
 # 2 通过合约名称进行查询 - 查询该名称注册历史
 ctool cns query --contract "test"
@@ -1249,11 +1190,10 @@ ctool cns query --user "0x01a369998e4a141c5e2b40dbcbaf4a601d57cfa5" --pageNum "1
 # 4 通过合约地址进行查询
 // 目前接口为通过地址查询未被注销的合约
 ctool cns query --contract "0x01a369998e4a141c5e2b40dbcbaf4a601d57cfa5"</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">cnsInfo对象:
+<pre class="codehilite"><code class="language-bash">cnsInfo对象:
 json&lt;kInfo&gt;{
   "name": ,
   "version": ,
@@ -1286,7 +1226,6 @@ result:
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_call</code></li>
@@ -1308,33 +1247,30 @@ contract: <code>cnsManager</code></li>
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;contract&gt;:         查询键，根据合约账户地址或合约账户名称进行查询
+<pre class="codehilite"><code class="language-param">&lt;contract&gt;:         查询键，根据合约账户地址或合约账户名称进行查询
 
 // 未实现
 --addr &lt;address&gt;:   查询键，合约账户地址
 --name string:      查询键，合约在cns中注册的合约名称（返回结果唯一）</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 查询合约地址是否注册
+<pre class="codehilite"><code class="language-bash"># 查询合约地址是否注册
 ctool invoke --addr "0x0000000000000000000000000000000000000011" --func 'ifRegisteredByAddress' --param "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206" --abi "~/PlatONE-Go/release/linux/conf/contracts/cnsManager.cpp.abi.json" --config "../config.json"
 # 查询合约名称是否被注册
 ctool invoke --addr "0x0000000000000000000000000000000000000011" --func 'ifRegisteredByName' --param "test" --abi "~/PlatONE-Go/release/linux/conf/contracts/cnsManager.cpp.abi.json" --config "../config.json"</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 查询合约地址是否注册
+<pre class="codehilite"><code class="language-bash"># 查询合约地址是否注册
 ctool cns state "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206"
 # 查询合约名称是否被注册
 ctool cns state "test"</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 ## 已注册
 result: the contract is registered in CNS
 ## 未注册
@@ -1342,7 +1278,6 @@ result: the contract is not registered in CNS
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_call</code></li>
@@ -1368,28 +1303,24 @@ contract: <code>cnsManager</code></li>
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;addres&gt;:    （进行防火墙设置的）合约账户地址</code></pre>
-
+<pre class="codehilite"><code class="language-param">&lt;addres&gt;:    （进行防火墙设置的）合约账户地址</code></pre>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool fwInvoke --addr "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --func '__sys_FwOpen()' --config "../config.json"  </code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool fwInvoke --addr "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --func '__sys_FwOpen()' --config "../config.json"  </code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool fw start "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool fw start "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c"</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 result: Operation Succeeded
 
 # 失败
 略</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -1401,28 +1332,24 @@ result: Operation Succeeded
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;addres&gt;:    （进行防火墙设置的）合约账户地址</code></pre>
-
+<pre class="codehilite"><code class="language-param">&lt;addres&gt;:    （进行防火墙设置的）合约账户地址</code></pre>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool fwInvoke --addr "0x5855455df9d1b395332e3ae9b2efc4e18ad8755f" --func '__sys_FwClose()' --config "../config.json"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool fwInvoke --addr "0x5855455df9d1b395332e3ae9b2efc4e18ad8755f" --func '__sys_FwClose()' --config "../config.json"</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool fw stop "0x5855455df9d1b395332e3ae9b2efc4e18ad8755f"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool fw stop "0x5855455df9d1b395332e3ae9b2efc4e18ad8755f"</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 result: Operation Succeeded
 
 # 失败
 同 4.1</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -1434,23 +1361,20 @@ result: Operation Succeeded
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;addres&gt;:    查询键，通过合约账户地址进行查询（返回结果唯一）</code></pre>
-
+<pre class="codehilite"><code class="language-param">&lt;addres&gt;:    查询键，通过合约账户地址进行查询（返回结果唯一）</code></pre>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool fwInvoke --addr "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --func '__sys_FwStatus()' --config "../config.json"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool fwInvoke --addr "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --func '__sys_FwStatus()' --config "../config.json"</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool fw query "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool fw query "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c"</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 result: {
   "ContractAddress":"0x08644ba5e0dd71d3d7cbb58913a099c2f3ca403f",
   "FwActive":true,
@@ -1466,7 +1390,6 @@ result: {
 
 # 失败
 同 4.1</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_call</code></li>
@@ -1478,37 +1401,32 @@ result: {
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;addres&gt;:             （进行防火墙设置的）合约账户地址</code></pre>
-
+<pre class="codehilite"><code class="language-param">&lt;addres&gt;:             （进行防火墙设置的）合约账户地址</code></pre>
 <ul>
 <li>可选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--action string       清除对应操作的防火墙规则。防火墙操作：允许approve(allow?)或拒绝reject(block?)
+<pre class="codehilite"><code class="language-param">--action string       清除对应操作的防火墙规则。防火墙操作：允许approve(allow?)或拒绝reject(block?)
 --all                 清除所有操作的防火墙规则</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool fwInvoke --addr "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --func '__sys_FwClear("Reject")' --config "../config.json"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool fwInvoke --addr "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --func '__sys_FwClear("Reject")' --config "../config.json"</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 清除对应防火墙操作规则
+<pre class="codehilite"><code class="language-bash"># 清除对应防火墙操作规则
 ctool fw clear "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --action "Reject"
 # 清除所有防火墙规则
 ctool fw clear "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --all</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 result: Operation Succeeded
 
 # 失败
 同 4.1</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -1520,39 +1438,35 @@ result: Operation Succeeded
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;addrres&gt;:             (进行防火墙设置的)合约账户地址
+<pre class="codehilite"><code class="language-param">&lt;addrres&gt;:             (进行防火墙设置的)合约账户地址
 &lt;action&gt;:             防火墙操作：允许accept(allow?)或拒绝reject(block?)
 &lt;account&gt;:            指定被过滤的一个或多个用户账户地址，'*'表示防火墙规则对所有用户账户地址生效。格式["&lt;address1&gt;","&lt;address2&gt;"]，单个账户地址可省略[]。
 &lt;api&gt;:                指定过滤的合约接口名，'*'表示该合约的所有接口。格式["&lt;funcname1&gt;","&lt;funcname2&gt;"]，单个接口名可省略[]。示例--api "getName"</code></pre>
-
 <p>注：目前只支持单条防火墙规则的添加，即单个账户地址+单个接口</p>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool fwInvoke --addr "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206" --func '__sys_FwAdd("Accept","*:getName")' --config "../config.json"
+<pre class="codehilite"><code class="language-bash">ctool fwInvoke --addr "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206" --func '__sys_FwAdd("Accept","*:getName")' --config "../config.json"
 ctool fwInvoke --addr "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206" --func '__sys_FwAdd("REJECT", "&lt;addr1&gt;:*|*:&lt;api2&gt;|&lt;addr3&gt;:&lt;api3&gt;")' --config "./config.json"</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">## 新增一条防火墙规则
+<pre class="codehilite"><code class="language-bash">## 新增一条防火墙规则
 ctool fw "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206" "accept" "*" "getName"
 
 ## 批量新增（暂未实现）
 ctool fw --addr "0x2ee8d0545ebd20f9a992ff54cb0f21a153539206" --act "reject" --user ["&lt;addr1&gt;,*,&lt;addr3&gt;"] --api ["*,&lt;api2&gt;,&lt;api3&gt;"]
 // 省去"__sys_FwAdd"的填写
 // --acount --api分开的写法对用户不太友好？</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 result: Operation Succeeded
 
 # 失败
 同 4.1</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -1564,32 +1478,28 @@ result: Operation Succeeded
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;addres&gt;:               （进行防火墙设置的）合约账户地址
+<pre class="codehilite"><code class="language-param">&lt;addres&gt;:               （进行防火墙设置的）合约账户地址
 &lt;action&gt;:               防火墙操作：允许approve(allow?)或拒绝reject(block?)
 &lt;account&gt;:              指定被过滤的一个或多个用户账户地址，'*'表示防火墙规则对所有用户账户地址生效。格式["&lt;address1&gt;","&lt;address2&gt;"]，单个账户地址可省略[]。
 &lt;api&gt;:                  指定过滤的合约接口名，'*'表示该合约的所有接口。格式["&lt;funcname1&gt;","&lt;funcname2&gt;"]，单个接口名可省略[]。示例--api "getName"</code></pre>
-
 <p>注：目前只支持单条防火墙规则的删除，即单个账户地址+单个接口</p>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool fwInvoke --addr "0x5855455df9d1b395332e3ae9b2efc4e18ad8755f" --func '__sys_FwDel("Reject","0x01a369998e4a141c5e2b40dbcbaf4a601d57cfa5:setName")' --config "../config.json"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool fwInvoke --addr "0x5855455df9d1b395332e3ae9b2efc4e18ad8755f" --func '__sys_FwDel("Reject","0x01a369998e4a141c5e2b40dbcbaf4a601d57cfa5:setName")' --config "../config.json"</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool fw delete "0x5855455df9d1b395332e3ae9b2efc4e18ad8755f" "Reject" "0x01a369998e4a141c5e2b40dbcbaf4a601d57cfa5" "setName"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool fw delete "0x5855455df9d1b395332e3ae9b2efc4e18ad8755f" "Reject" "0x01a369998e4a141c5e2b40dbcbaf4a601d57cfa5" "setName"</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 result: Operation Succeeded
 
 # 失败
 同 4.1</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -1601,32 +1511,28 @@ result: Operation Succeeded
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;addres&gt;:               （进行防火墙设置的）合约账户地址
+<pre class="codehilite"><code class="language-param">&lt;addres&gt;:               （进行防火墙设置的）合约账户地址
 &lt;action&gt;:               防火墙操作：允许accept(allow?)或拒绝reject(block?)
 &lt;account&gt;:              指定被过滤的一个或多个用户账户地址，'*'表示防火墙规则对所有用户账户地址生效。格式["&lt;address1&gt;","&lt;address2&gt;"]，单个账户地址可省略[]。
 &lt;api&gt;:                  指定过滤的合约接口名，'*'表示该合约的所有接口。格式["&lt;funcname1&gt;","&lt;funcname2&gt;"]，单个接口名可省略[]。示例--api "getName"</code></pre>
-
 <p>注：目前只支持单条防火墙规则的重置，即单个账户地址+单个接口</p>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool fwInvoke --addr "0x5855455df9d1b395332e3ae9b2efc4e18ad8755f" --func '__sys_FwSet("Reject","*:setName")' --config "../config.json"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool fwInvoke --addr "0x5855455df9d1b395332e3ae9b2efc4e18ad8755f" --func '__sys_FwSet("Reject","*:setName")' --config "../config.json"</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool fw replace "0x5855455df9d1b395332e3ae9b2efc4e 18ad8755f" "Reject" "*" "setName"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool fw replace "0x5855455df9d1b395332e3ae9b2efc4e 18ad8755f" "Reject" "*" "setName"</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 result: Operation Succeeded
 
 # 失败
 同 4.1</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -1638,33 +1544,28 @@ result: Operation Succeeded
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--addr &lt;addres&gt;:     （进行防火墙设置的）合约账户地址</code></pre>
-
+<pre class="codehilite"><code class="language-param">--addr &lt;addres&gt;:     （进行防火墙设置的）合约账户地址</code></pre>
 <ul>
 <li>可选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--fwfile &lt;file&gt;:      导入的防火墙规则文件的路径，默认文件为。/config/fireWall.json</code></pre>
-
+<pre class="codehilite"><code class="language-param">--fwfile &lt;file&gt;:      导入的防火墙规则文件的路径，默认文件为。/config/fireWall.json</code></pre>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">略</code></pre>
-
+<pre class="codehilite"><code class="language-bash">略</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool fw import "0x5855455df9d1b395332e3ae9b2efc4e18ad8755f" --fwfile &lt;file path&gt;</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool fw import "0x5855455df9d1b395332e3ae9b2efc4e18ad8755f" --fwfile &lt;file path&gt;</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 result: Operation Succeeded
 
 # 失败
 同 4.1</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -1676,29 +1577,25 @@ result: Operation Succeeded
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;addres&gt;:             合约账户地址</code></pre>
-
+<pre class="codehilite"><code class="language-param">&lt;addres&gt;:             合约账户地址</code></pre>
 <ul>
 <li>可选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--fwfile &lt;file&gt;:      导出的防火墙规则文件存储的路径，默认路径为./config</code></pre>
-
+<pre class="codehilite"><code class="language-param">--fwfile &lt;file&gt;:      导出的防火墙规则文件存储的路径，默认路径为./config</code></pre>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool fwInvoke --addr "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --func '__sys_FwStatus()' --config "../config.json"
+<pre class="codehilite"><code class="language-bash">ctool fwInvoke --addr "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --func '__sys_FwStatus()' --config "../config.json"
 // 通过__sys_FwStatus()实现，没有独立的接口</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 导出防火墙规则到默认地址
+<pre class="codehilite"><code class="language-bash"># 导出防火墙规则到默认地址
 ctool fw export "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c"
 
 # 导出防火墙规则到指定地址
 ctool fw export "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --fwfile &lt;file path&gt;</code></pre>
-
 <ul>
 <li>
 <p><strong>输出结果</strong>：
@@ -1728,7 +1625,7 @@ ctool fw export "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --fwfile &lt;file p
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;name&gt;:            节点名称
+<pre class="codehilite"><code class="language-param">&lt;name&gt;:            节点名称
 &lt;publicKey&gt;:       节点公钥，用于节点间安全通信。节点的公私钥对可由ethkey工具产生。
 &lt;externalIP&gt;:      节点外网IP
 &lt;internalIP&gt;:      节点内网IP
@@ -1737,41 +1634,36 @@ ctool fw export "0xacda4dfbbd6d093cf7e348abb33296d9aeb0f23c" --fwfile &lt;file p
 // 初始化时都是固定常数值，可以省略
 // --type string:      节点类型，0为观察者节点，1为共识节点。初次加入链网络的节点都为观察节点，观察节点可以由管理员设置为共识节点。
 // --status string:    节点状态，1为有效状态，2为无效（删除）状态</code></pre>
-
 <ul>
 <li>可选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--rpc-port int&lt;num&gt;:  用于rpc远程调用的网络端口，默认端口6791
+<pre class="codehilite"><code class="language-param">--rpc-port int&lt;num&gt;:  用于rpc远程调用的网络端口，默认端口6791
 --p2p-port int&lt;num&gt;:  用于p2p通信的网络端口，默认端口16791
 --desc string:        节点描述
 --delay &lt;num&gt;:        共识节点延迟设置的区块高度，默认实时设置
 
 // 简写--rpc, --p2p ???</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool invoke --addr "0x7b821b3d871426eb79d6e7145126f7d0b5fb4356" --func 'add' --param '{"name":"root","owner":"0x96307a6168921cefd50d66e1921a029fe1982394","approver":"0x96307a6168921cefd50d66e1921a029fe1982394","desc":"root","publicKey":"feffe2938d427088f5fcce94a9245760b92c468d3ca25ab5ef2b1cdccf0ed911963b74ca2dffef20ef135966e34ebcc905d1f12c1df09f05974a617cf8afe8e8","root":true,"type":1,"externalIP":"127.0.0.1","internalIP":"127.0.0.1","rpcPort":6791,"p2pPort":16791,"status":1}' --abi "./conf/contracts/nodeManager.cpp.abi.json" --config "./user2.json"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool invoke --addr "0x7b821b3d871426eb79d6e7145126f7d0b5fb4356" --func 'add' --param '{"name":"root","owner":"0x96307a6168921cefd50d66e1921a029fe1982394","approver":"0x96307a6168921cefd50d66e1921a029fe1982394","desc":"root","publicKey":"feffe2938d427088f5fcce94a9245760b92c468d3ca25ab5ef2b1cdccf0ed911963b74ca2dffef20ef135966e34ebcc905d1f12c1df09f05974a617cf8afe8e8","root":true,"type":1,"externalIP":"127.0.0.1","internalIP":"127.0.0.1","rpcPort":6791,"p2pPort":16791,"status":1}' --abi "./conf/contracts/nodeManager.cpp.abi.json" --config "./user2.json"</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool admin node add "root" --desc "root" "feffe2938d427088f5fcce94a9245760b92c468d3ca25ab5ef2b1cdccf0ed911963b74ca2dffef20ef135966e34ebcc905d1f12c1df09f05974a617cf8afe8e8" "127.0.0.1" "127.0.0.1"
+<pre class="codehilite"><code class="language-bash">ctool admin node add "root" --desc "root" "feffe2938d427088f5fcce94a9245760b92c468d3ca25ab5ef2b1cdccf0ed911963b74ca2dffef20ef135966e34ebcc905d1f12c1df09f05974a617cf8afe8e8" "127.0.0.1" "127.0.0.1"
 // 不需指定type, status
 // owner 需要指定，目前内置一个值
 // approver不需要指定，已弃用？</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 ## 同步结果
 result：add node info success. node info: {"delayNum":... ...}
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -1785,31 +1677,27 @@ result：add node info success. node info: {"delayNum":... ...}
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;name&gt;:        节点名称</code></pre>
-
+<pre class="codehilite"><code class="language-param">&lt;name&gt;:        节点名称</code></pre>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">略</code></pre>
-
+<pre class="codehilite"><code class="language-bash">略</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool admin node delete "root"
+<pre class="codehilite"><code class="language-bash">ctool admin node delete "root"
 // 不存在用户直接修改status的情况。确保status只能从1-&gt;2。
 // 状态修改后，节点的完整信息依旧可以通过query命令查询到</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 ## 写操作
 result: NodeManager update key: status
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -1824,47 +1712,42 @@ result: NodeManager update key: status
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;name&gt;:            节点名称</code></pre>
-
+<pre class="codehilite"><code class="language-param">&lt;name&gt;:            节点名称</code></pre>
 <ul>
 <li>可选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--desc string:     节点描述
+<pre class="codehilite"><code class="language-param">--desc string:     节点描述
 --type string:     节点类型，"observer"(0)为观察者节点，"consensus"(1)为共识节点。
 --delay &lt;num&gt;:     共识节点延迟设置的区块高度，默认实时设置</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 通过系统合约地址进行调用
+<pre class="codehilite"><code class="language-bash"># 通过系统合约地址进行调用
 ctool invoke --addr "0x7b821b3d871426eb79d6e7145126f7d0b5fb4356" --func "update" --param "nodeC" --param '{"type":1}' --abi "./conf/contracts/nodeManager.cpp.abi.json" --config "./user2.json"
 # 通过系统合约名称进行调用
 ctool cnsInvoke --cns "__sys_NodeManager"   --config "ctool.json" --abi "nodeManager/nodeManager.cpp.abi.json" --func "update" --param "test" --param '{"type":1}'
 
 ctool cnsInvoke --cns "__sys_NodeManager" --func 'update("node-4","1")' --abi "~/PlatONE-Go/release/linux/conf/contracts/nodeManager.cpp.abi.json" --config "../config.json"
 // 建议使用合约名称调用系统合约</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 更新节点type信息
+<pre class="codehilite"><code class="language-bash"># 更新节点type信息
 ctool admin node update "node-4" --type "consensus"
 # 更新节点desc信息
 ctool admin node update "node-4" --desc "this is a description"
   # 更新节点delayNum信息
 ctool admin node update "node-4" --delay 10</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 ## 同步查询
 result: NodeManager update key: type
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -1877,7 +1760,7 @@ result: NodeManager update key: type
 <li><strong>参数</strong>：</li>
 <li>可选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">若无任何查询键则返回网络中所有节点的数据对象
+<pre class="codehilite"><code class="language-param">若无任何查询键则返回网络中所有节点的数据对象
 --all                 查询键，查询所有节点(包含已被删除的节点)
 --name string：       查询键，通过节点名称进行查询（返回结果可能不唯一）
 --status string:      查询键，通过节点状态进行查询。valid(1)为有效状态，invalid(2)为无效（删除）状态
@@ -1886,12 +1769,11 @@ result: NodeManager update key: type
 
 // 暂未实现
 --enode               搭配--status使用，返回的节点信息为enode格式</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 通过系统合约地址进行调用
+<pre class="codehilite"><code class="language-bash"># 通过系统合约地址进行调用
 ## 返回网络中所有节点
 ctool invoke --addr "0x7b821b3d871426eb79d6e7145126f7d0b5fb4356" --func 'getAllNodes' --abi "./conf/contracts/nodeManager.cpp.abi.json" --config "./user2.json"
 ## 根据查询键进行搜索
@@ -1902,11 +1784,10 @@ ctool invoke --addr "0x7b821b3d871426eb79d6e7145126f7d0b5fb4356" --func 'getNode
 ctool cnsInvoke --cns "__sys_NodeManager"   --config "ctool.json" --abi "nodeManager/nodeManager.cpp.abi.json" --func "getAllNodes()"
 ## 根据查询键进搜索
 ctool cnsInvoke --cns "__sys_NodeManager" --func 'getNodes({"name":"node-0"})' --abi "~/PlatONE-Go/release/linux/conf/contracts/nodeManager.cpp.abi.json" --config "../config.json"</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">## 返回网络中所有节点
+<pre class="codehilite"><code class="language-bash">## 返回网络中所有节点
 ctool admin node query --all
 ## 根据查询键进行搜索
 ctool admin node query --name "node-0"
@@ -1917,11 +1798,10 @@ ctool admin node query --type "consensus"
 
 ## 组合查询
   ctool admin node query --status "valid" --name "root"</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 ## 读操作
 * result: %s
 
@@ -1949,7 +1829,6 @@ result:{
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_call</code></li>
@@ -1970,38 +1849,33 @@ contract: <code>nodeManager</code></li>
 <li><strong>参数</strong>：</li>
 <li>可选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--status string:    查询键，通过节点状态进行统计。"valid"为有效状态(1)，"invalid"为无效（删除）状态(2)
+<pre class="codehilite"><code class="language-param">--status string:    查询键，通过节点状态进行统计。"valid"为有效状态(1)，"invalid"为无效（删除）状态(2)
 --type string:      查询键，通过节点类型进行统计。"observer"为观察者节点(0)，"consensus"为共识节点(1)</code></pre>
-
 <ul>
 <li>无意义的参数：(暂未实现)</li>
 </ul>
-<pre class="highlight"><code class="language-param">--name string：       查询键，通过节点名称进行统计 // 包含无效状态节点的名称的统计，无意义？
+<pre class="codehilite"><code class="language-param">--name string：       查询键，通过节点名称进行统计 // 包含无效状态节点的名称的统计，无意义？
 --pk string:          查询键，通过节点公钥进行统计（返回结果唯一） //删除 返回值只能为1</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 指定公钥对应的有效节点数目
+<pre class="codehilite"><code class="language-bash"># 指定公钥对应的有效节点数目
 ctool invoke --addr "0x743bc6816b2fa897d60b657b7eee3aaf2e3ca253" --func 'getRegisterInfoByPublicKey' --param "7caae651e633769fa693f633e3a468775bf19699ccdc014eb9449c2eb0f82ebde4a7d28c9b846d2df02d1e7f7e1460fbb31eb83c6faf208dcbfd4f2944d31c61" --abi "./conf/contracts/nodeRegister.cpp.abi.json" --config "./user2.json"</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 指定公钥对应的节点数目
+<pre class="codehilite"><code class="language-bash"># 指定公钥对应的节点数目
 ctool admin node stat --status "valid"</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 ## 读操作
 * result: &lt;num&gt;
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_call</code></li>
@@ -2018,29 +1892,25 @@ ctool admin node stat --status "valid"</code></pre>
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;address&gt;:        角色注册表中注册合约部署者用户的账户地址
+<pre class="codehilite"><code class="language-param">&lt;address&gt;:        角色注册表中注册合约部署者用户的账户地址
 &lt;operation&gt;:      审批状态: approve(2)为注册申请通过，reject(3)为拒绝</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool cnsInvoke --cns "__sys_RoleRegister" --func 'approveRole("0xb239401ecf8427f17c6de134d6a6bddd3100251f",2)'  --abi "~/PlatONE-Go/release/linux/conf/contracts/roleRegister.cpp.abi.json" --config "../config.json"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool cnsInvoke --cns "__sys_RoleRegister" --func 'approveRole("0xb239401ecf8427f17c6de134d6a6bddd3100251f",2)'  --abi "~/PlatONE-Go/release/linux/conf/contracts/roleRegister.cpp.abi.json" --config "../config.json"</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool admin contract approve "0xb239401ecf8427f17c6de134d6a6bddd3100251f" "approve"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool admin contract approve "0xb239401ecf8427f17c6de134d6a6bddd3100251f" "approve"</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 // TODO
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -2054,30 +1924,26 @@ ctool admin node stat --status "valid"</code></pre>
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;name&gt;:         被添加合约部署者角色的用户账户名称
+<pre class="codehilite"><code class="language-param">&lt;name&gt;:         被添加合约部署者角色的用户账户名称
 &lt;address&gt;:      被添加合约部署者角色的用户账户地址</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">略</code></pre>
-
+<pre class="codehilite"><code class="language-bash">略</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool admin contract add "0xb239401ecf8427f17c6de134d6a6bddd3100251f" "root"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool admin contract add "0xb239401ecf8427f17c6de134d6a6bddd3100251f" "root"</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 result: OK: [RoleManager] [addRole] Update roles success. \
 address: 0xb239401ecf8427f17c6de134d6a6bddd3100251f, roles: ["contractDeployer"]
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -2090,29 +1956,25 @@ address: 0xb239401ecf8427f17c6de134d6a6bddd3100251f, roles: ["contractDeployer"]
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;address&gt;:      删除合约部署者角色的用户的账户地址</code></pre>
-
+<pre class="codehilite"><code class="language-param">&lt;address&gt;:      删除合约部署者角色的用户的账户地址</code></pre>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool cnsInvoke --cns "__sys_RoleManager" --func 'removeRole("0x08e7988e60ab5aa49d1f7aa9435ac91b9fcf772c","["contractDeployer"]")' --abi "~/PlatONE-Go/release/linux/conf/contracts/roleManager.cpp.abi.json" --config "../config.json"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool cnsInvoke --cns "__sys_RoleManager" --func 'removeRole("0x08e7988e60ab5aa49d1f7aa9435ac91b9fcf772c","["contractDeployer"]")' --abi "~/PlatONE-Go/release/linux/conf/contracts/roleManager.cpp.abi.json" --config "../config.json"</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool admin contract delete "0x08e7988e60ab5aa49d1f7aa9435ac91b9fcf772c"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool admin contract delete "0x08e7988e60ab5aa49d1f7aa9435ac91b9fcf772c"</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 result: OK: [RoleManager] [removeRole] Remove roles success. \
 address: 0xb239401ecf8427f17c6de134d6a6bddd3100251f, roles: ["contractDeployer"]
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -2126,35 +1988,32 @@ address: 0xb239401ecf8427f17c6de134d6a6bddd3100251f, roles: ["contractDeployer"]
 <li><strong>参数</strong>：</li>
 <li>可选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--approve         获取审核中的注册合约部署角色的列表
+<pre class="codehilite"><code class="language-param">--approve         获取审核中的注册合约部署角色的列表
 --delete          获取拥有合约部署者角色的用户列表
 
 // 未实现
 --display &lt;num&gt;   x
 --index &lt;num&gt;     x</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 拥有合约部署者角色的用户列表
+<pre class="codehilite"><code class="language-bash"># 拥有合约部署者角色的用户列表
 ctool invoke --addr "0x1df9e46ccaf981f993fe26a6eb52a6c3fd7193df" --func 'getAccountsByRole' --param "chainAdmin" --abi "roleManager/roleManager.cpp.abi.json" --config "cnsManager/config.json"</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 拥有合约部署者角色的用户列表，方便删除delete操作
+<pre class="codehilite"><code class="language-bash"># 拥有合约部署者角色的用户列表，方便删除delete操作
 ctool admin contract list --delete
 // 等价于 ctool account query --roles ["contractDeployer"]
 
 # 角色注册表中审核中状态的用户，方便审核approve操作
 ctool admin contract list --approve
 // 等价于ctool account query --status "1" --reg "role" --display "10" --index "2"</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 ## delete操作
 result:
 {
@@ -2185,7 +2044,6 @@ result:
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_call</code></li>
@@ -2201,32 +2059,28 @@ result:
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--addr &lt;address&gt;:       用户注册表中的账户地址
+<pre class="codehilite"><code class="language-param">--addr &lt;address&gt;:       用户注册表中的账户地址
 --status int&lt;num&gt;:      审批状态: "approve"为注册审批通过(2)，"reject"为拒绝(3)</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool cnsInvoke --cns "__sys_UserRegister" --func 'approve("0xb239401ecf8427f17c6de134d6a6bddd3100251f",2)' --abi "~/PlatONE-Go/release/linux/conf/contracts/userRegister.cpp.abi.json" --config  "../config.json"
+<pre class="codehilite"><code class="language-bash">ctool cnsInvoke --cns "__sys_UserRegister" --func 'approve("0xb239401ecf8427f17c6de134d6a6bddd3100251f",2)' --abi "~/PlatONE-Go/release/linux/conf/contracts/userRegister.cpp.abi.json" --config  "../config.json"
 
 ctool invoke --addr "0xf7e769f67be5bf06d5712c355e293ef0d4c685fc" --func 'approve' --param '0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe' --param "2" --abi "./userRegister/userRegister.cpp.abi.json" --config  "cnsManager/config.json"</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool admin user approve '0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe' "approve"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool admin user approve '0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe' "approve"</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 ## 写操作
 (待补充)
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -2239,11 +2093,10 @@ ctool invoke --addr "0xf7e769f67be5bf06d5712c355e293ef0d4c685fc" --func 'approve
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;address&gt;：       用户账户地址
+<pre class="codehilite"><code class="language-param">&lt;address&gt;：       用户账户地址
 &lt;name&gt;：          用户账户名
 &lt;tel&gt;：           用户电话信息  
 &lt;email&gt;：         用户邮箱信息</code></pre>
-
 <ul>
 <li>
 <p><strong>操作</strong>：</p>
@@ -2252,22 +2105,19 @@ ctool invoke --addr "0xf7e769f67be5bf06d5712c355e293ef0d4c685fc" --func 'approve
 <p>重构前：</p>
 </li>
 </ul>
-<pre class="highlight"><code class="language-bash">略</code></pre>
-
+<pre class="codehilite"><code class="language-bash">略</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool admin user add "0xb239401ecf8427f17c6de134d6a6bddd3100251f" "Alice" "13111111111" "alice@wx.bc.com"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool admin user add "0xb239401ecf8427f17c6de134d6a6bddd3100251f" "Alice" "13111111111" "alice@wx.bc.com"</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 (待补充)
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -2280,31 +2130,27 @@ ctool invoke --addr "0xf7e769f67be5bf06d5712c355e293ef0d4c685fc" --func 'approve
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;address&gt;:   删除用户的账户地址</code></pre>
-
+<pre class="codehilite"><code class="language-param">&lt;address&gt;:   删除用户的账户地址</code></pre>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool cnsInvoke --cns "__sys_UserManager" --func 'delUser("0xb239401ecf8427f17c6de134d6a6bddd3100251f")' --abi "~/PlatONE-Go/release/linux/conf/contracts/userManager.cpp.abi.json" --config "../config.json"
+<pre class="codehilite"><code class="language-bash">ctool cnsInvoke --cns "__sys_UserManager" --func 'delUser("0xb239401ecf8427f17c6de134d6a6bddd3100251f")' --abi "~/PlatONE-Go/release/linux/conf/contracts/userManager.cpp.abi.json" --config "../config.json"
 
 ctool invoke --addr "0x6c990c0f1ae07222c7b7dcb2b68b936d0008ca57" --func 'delUser' --param "0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe" --abi "userManager/userManager.cpp.abi.json" --config "cnsManager/config.json"</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool admin user delete "0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool admin user delete "0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe"</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 ## 同步查询
 result: Operation Succeeded
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -2317,31 +2163,27 @@ result: Operation Succeeded
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;address&gt;:   解禁用户的账户地址</code></pre>
-
+<pre class="codehilite"><code class="language-param">&lt;address&gt;:   解禁用户的账户地址</code></pre>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool cnsInvoke --cns "__sys_UserManager" --func 'enable("0xb239401ecf8427f17c6de134d6a6bddd3100251f")' --abi "~/PlatONE-Go/release/linux/conf/contracts/userManager.cpp.abi.json" --config "../config.json"
+<pre class="codehilite"><code class="language-bash">ctool cnsInvoke --cns "__sys_UserManager" --func 'enable("0xb239401ecf8427f17c6de134d6a6bddd3100251f")' --abi "~/PlatONE-Go/release/linux/conf/contracts/userManager.cpp.abi.json" --config "../config.json"
 
 ctool invoke --addr "0x6c990c0f1ae07222c7b7dcb2b68b936d0008ca57" --func 'enable' --param "0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe" --abi "userManager/userManager.cpp.abi.json" --config "cnsManager/config.json"</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool admin user enable "0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool admin user enable "0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe"</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 ## 同步查询
 result: 用户状态更新成功
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -2353,31 +2195,27 @@ result: 用户状态更新成功
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;address&gt;:   禁用用户的账户地址</code></pre>
-
+<pre class="codehilite"><code class="language-param">&lt;address&gt;:   禁用用户的账户地址</code></pre>
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool cnsInvoke --cns "__sys_UserManager" --func 'disable("0xb239401ecf8427f17c6de134d6a6bddd3100251f")' --abi "~/PlatONE-Go/release/linux/conf/contracts/userManager.cpp.abi.json" --config "../config.json"
+<pre class="codehilite"><code class="language-bash">ctool cnsInvoke --cns "__sys_UserManager" --func 'disable("0xb239401ecf8427f17c6de134d6a6bddd3100251f")' --abi "~/PlatONE-Go/release/linux/conf/contracts/userManager.cpp.abi.json" --config "../config.json"
 
 ctool invoke --addr "0x6c990c0f1ae07222c7b7dcb2b68b936d0008ca57" --func 'disable' --param "0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe" --abi "userManager/userManager.cpp.abi.json" --config "cnsManager/config.json"</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool admin user disable "0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool admin user disable "0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe"</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 ## 同步查询
 result: Operation Succeeded
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_sendTransaction</code></li>
@@ -2400,7 +2238,7 @@ result: Operation Succeeded
 <p>可选参数：</p>
 </li>
 </ul>
-<pre class="highlight"><code class="language-param">--approve         获取审核中状态的注册用户列表
+<pre class="codehilite"><code class="language-param">--approve         获取审核中状态的注册用户列表
 
 // 暂未实现
 --delete          获取可删除的用户列表
@@ -2408,17 +2246,15 @@ result: Operation Succeeded
 --disable         获取禁用状态的用户列表
 --display &lt;num&gt;:  x
 --index &lt;num&gt;:    x</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">无</code></pre>
-
+<pre class="codehilite"><code class="language-bash">无</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 显示用户平台用户（无接口，暂未实现）
+<pre class="codehilite"><code class="language-bash"># 显示用户平台用户（无接口，暂未实现）
 ctool admin user list --enable --display "10" --index "2"
 // 等价于ctool account query --status "1" --display "10" --index "2"
 
@@ -2429,11 +2265,10 @@ ctool admin user list --disable --display "10" --index "2"
 # 显示用户注册表审核中用户
 ctool admin user list --approve
 // 等价于ctool account query --status "1" --reg "user" --display "10" --index "2"</code></pre>
-
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 ## 无用户申请
 result:
 {
@@ -2444,7 +2279,6 @@ result:
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 <li>调用RPC接口：<code>eth_call</code></li>
@@ -2458,31 +2292,27 @@ result:
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">--addr &lt;address&gt;:       角色注册表中的用户账户地址
+<pre class="codehilite"><code class="language-param">--addr &lt;address&gt;:       角色注册表中的用户账户地址
 --status int&lt;num&gt;:      审批状态: approve(2)为注册申请通过，reject(3)为拒绝</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool cnsInvoke --cns "__sys_RoleRegister" --func 'approveRole("0xb239401ecf8427f17c6de134d6a6bddd3100251f",2)'  --abi "~/PlatONE-Go/release/linux/conf/contracts/roleRegister.cpp.abi.json" --config "../config.json"
+<pre class="codehilite"><code class="language-bash">ctool cnsInvoke --cns "__sys_RoleRegister" --func 'approveRole("0xb239401ecf8427f17c6de134d6a6bddd3100251f",2)'  --abi "~/PlatONE-Go/release/linux/conf/contracts/roleRegister.cpp.abi.json" --config "../config.json"
 
 ctool invoke --addr "0xf8f1bec07e2556e6be2371f441f0a1ce9c8b737b" --func 'approveRole' --param '0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe' --param 2 --abi "roleRegister/roleRegister.cpp.abi.json" --config "cnsManager/config.json"</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool admin sup approve "0xb239401ecf8427f17c6de134d6a6bddd3100251f" "approve"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool admin sup approve "0xb239401ecf8427f17c6de134d6a6bddd3100251f" "approve"</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 (待补充)
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 </ul>
@@ -2493,29 +2323,25 @@ ctool invoke --addr "0xf8f1bec07e2556e6be2371f441f0a1ce9c8b737b" --func 'approve
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;address&gt;:          添加角色的用户的账户地址
+<pre class="codehilite"><code class="language-param">&lt;address&gt;:          添加角色的用户的账户地址
 &lt;roles&gt;:            添加的一个或多个角色名，格式为"["&lt;role&gt;"]"或者"["&lt;role1&gt;",...,"&lt;role3&gt;"]"</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">#</code></pre>
-
+<pre class="codehilite"><code class="language-bash">#</code></pre>
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool admin sup add "0x08e7988e60ab5aa49d1f7aa9435ac91b9fcf772c" '["nodeAdmin","contractDeployer"]'</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool admin sup add "0x08e7988e60ab5aa49d1f7aa9435ac91b9fcf772c" '["nodeAdmin","contractDeployer"]'</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 同 5.2.2
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 </ul>
@@ -2525,31 +2351,27 @@ ctool invoke --addr "0xf8f1bec07e2556e6be2371f441f0a1ce9c8b737b" --func 'approve
 <li><strong>参数</strong>：</li>
 <li>必选参数：</li>
 </ul>
-<pre class="highlight"><code class="language-param">&lt;address&gt;:      添加角色的用户的账户地址
+<pre class="codehilite"><code class="language-param">&lt;address&gt;:      添加角色的用户的账户地址
 &lt;roles&gt;:        删除的一个或多个角色名，格式为"["&lt;role&gt;"]"或者"["&lt;role1&gt;",...,"&lt;role3&gt;"]"</code></pre>
-
 <ul>
 <li><strong>操作</strong>：</li>
 <li>重构前：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool cnsInvoke --cns "__sys_RoleManager" --func 'removeRole("0x08e7988e60ab5aa49d1f7aa9435ac91b9fcf772c","["nodeAdmin"]")' --abi "~/PlatONE-Go/release/linux/conf/contracts/roleManager.cpp.abi.json" --config "../config.json"
+<pre class="codehilite"><code class="language-bash">ctool cnsInvoke --cns "__sys_RoleManager" --func 'removeRole("0x08e7988e60ab5aa49d1f7aa9435ac91b9fcf772c","["nodeAdmin"]")' --abi "~/PlatONE-Go/release/linux/conf/contracts/roleManager.cpp.abi.json" --config "../config.json"
 
 ctool invoke --addr "0x1df9e46ccaf981f993fe26a6eb52a6c3fd7193df" --func 'removeRole' --param "0x39f5ddcd8956e57b7fe6290e008f845f59dde8fe" --param '["nodeAdmin"]' --abi "roleManager/roleManager.cpp.abi.json" --config "cnsManager/config.json"</code></pre>
-
 <ul>
 <li>重构后：</li>
 </ul>
-<pre class="highlight"><code class="language-bash">ctool admin sup delete "0x08e7988e60ab5aa49d1f7aa9435ac91b9fcf772c" "['nodeAdmin']"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool admin sup delete "0x08e7988e60ab5aa49d1f7aa9435ac91b9fcf772c" "['nodeAdmin']"</code></pre>
 <ul>
 <li><strong>输出结果</strong>：</li>
 </ul>
-<pre class="highlight"><code class="language-bash"># 成功
+<pre class="codehilite"><code class="language-bash"># 成功
 同 5.2.3
 
 # 失败
 同 2.3</code></pre>
-
 <ul>
 <li><strong>备注</strong>：</li>
 </ul>
@@ -2560,12 +2382,10 @@ ctool invoke --addr "0x1df9e46ccaf981f993fe26a6eb52a6c3fd7193df" --func 'removeR
 <p>详细参考 5.2.5</p>
 <h3 id="55-admin-sysconfig">5.5 系统参数设置 admin sysconfig (暂未实现)</h3>
 <h4 id="551-admin-sysconfig-consensus">5.5.1 共识设置 admin sysconfig consensus*</h4>
-<pre class="highlight"><code class="language-bash">ctool cnsInvoke --cns "__sys_ParamManager" --func 'setBlockGasLimit("10000000000000000")' --abi "paramManager/paramManager.cpp.abi.json" --config "cnsManager/config.json"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool cnsInvoke --cns "__sys_ParamManager" --func 'setBlockGasLimit("10000000000000000")' --abi "paramManager/paramManager.cpp.abi.json" --config "cnsManager/config.json"</code></pre>
 <h4 id="552-admin-sysconfig-ac">5.5.2 权限控制设置 admin sysconfig ac*</h4>
 <h4 id="553-admin-sysconfig-gasfee">5.5.3 服务费设置 admin sysconfig gasfee*</h4>
-<pre class="highlight"><code class="language-bash">ctool cnsInvoke --cns "__sys_ParamManager" --func 'setTxGasLimit("5000000000000")' --abi "paramManager/paramManager.cpp.abi.json" --config "cnsManager/config.json"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">ctool cnsInvoke --cns "__sys_ParamManager" --func 'setTxGasLimit("5000000000000")' --abi "paramManager/paramManager.cpp.abi.json" --config "cnsManager/config.json"</code></pre>
 <h2 id="a-platone">A. PlatONE系统合约中未使用的接口 (待补充)</h2>
 <h2 id="b">B. 参考来源</h2>
 <p>[1] <a href="https://172.16.211.192/PlatONE/doc/Dev/blob/develop/PlatONE-Workspace/doc/%E5%8A%9F%E8%83%BD%E6%BC%94%E7%A4%BA.md">Dev/PlatONE-Workspace/doc/功能演示.md</a></p>

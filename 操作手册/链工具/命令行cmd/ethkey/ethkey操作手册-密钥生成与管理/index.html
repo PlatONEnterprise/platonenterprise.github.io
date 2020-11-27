@@ -78,23 +78,21 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <p>PlatONE提供了密钥工具ethkey，用于产生密钥对。</p>
 <p>该工具位于<code>~/PlatONE-Go/release/linux/bin</code>目录下。</p>
 <h2 id="2-ethkey-genkeypair">2. 创建密钥对 | ethkey genkeypair</h2>
-<pre class="highlight"><code class="language-shell">./ethkey genkeypair
+<pre class="codehilite"><code class="language-shell">./ethkey genkeypair
 
 Address   :  0xec5b67d6CC4b18cdEA2A7ddEBFe6E38305F38387
 PrivateKey:  3307251f43c4259a861a74eeed666595d961f03c0820f54252d7e711619c8593
 PublicKey :  a89421260aa2ec3eee9b148556850517b51b042272f5a536938a81acd9f152856dc200911f43f9a1d65567e31875d8de639a8b168c819ff0a3b5cb0a4d056e9f</code></pre>
-
 <p>该命令会创建一组新的密钥对，其中私钥是用户自己保存的，地址及公钥可以公开。</p>
 <h2 id="3-ethkey-generate">3. 创建密钥文件 ｜ ethkey generate</h2>
-<pre class="highlight"><code class="language-shell">./ethkey generate
+<pre class="codehilite"><code class="language-shell">./ethkey generate
 
 Passphrase:
 Repeat passphrase:
 Address: 0x8B5d3Af7bF4d309D4C83Ed30936f78FBB1AcAA18</code></pre>
-
 <p>该命令用于根据输入的密码创建密钥文件（keyfile.json），密钥文件可以用来签名消息。</p>
 <p>keyfile.json文件的内容如下所示：</p>
-<pre class="highlight"><code class="language-shell">{
+<pre class="codehilite"><code class="language-shell">{
     "address":"8b5d3af7bf4d309d4c83ed30936f78fbb1acaa18",
     "crypto":{
         "cipher":"aes-128-ctr","ciphertext":"39e7bb77b7a6fc06ecbb884eecdd0f1fdcf48bd9ecd11aa5a904816bb1922160",
@@ -112,9 +110,8 @@ Address: 0x8B5d3Af7bF4d309D4C83Ed30936f78FBB1AcAA18</code></pre>
     "id":"56ccd2ab-1a98-49c8-8173-6a805ac96948",
     "version":3
 }</code></pre>
-
 <h2 id="4-ethkey-inspect">4. 查看密钥文件信息 ｜ ethkey inspect</h2>
-<pre class="highlight"><code class="language-shell">Usgae:
+<pre class="codehilite"><code class="language-shell">Usgae:
     ethkey inspect &lt;keyfile&gt;
 e.g:
 ./ethkey inspect keyfile.json  --private
@@ -124,9 +121,8 @@ Passphrase:
 Address:        0x8B5d3Af7bF4d309D4C83Ed30936f78FBB1AcAA18
 Public key:     04f7acbc87ddf0da6edbd3ac86f81ebac69992cd4b40897855322c5c4ed029cacd5e1b9ef5b78d66576de68041689702fe5a893cae5f46def58e25738efa2ff801
 Private key:    e01cbcdbf2bea366eac27ec1214cd84fe718a77bee15a30102ef88f297b15cff</code></pre>
-
 <h2 id="5-ethkey-signmessage">5. 签名消息 ｜ ethkey signmessage</h2>
-<pre class="highlight"><code class="language-shell">Usage:
+<pre class="codehilite"><code class="language-shell">Usage:
     ethkey signmessage &lt;keyfile&gt; &lt;message/file&gt;
 e.g:
 ./ethkey signmessage keyfile.json message
@@ -134,9 +130,8 @@ e.g:
 Result:
 Passphrase:
 Signature: cf394180f0ae2e507470e904eeba1cbcc8882c2b73ea9e712fcd897a5d195d292df076171dfb03e1913226de5060e5e7548ecc3091157f8d5b8b62def6c6d9d600</code></pre>
-
 <h2 id="6-ethkey-verifymessage">6. 验证签名 ｜ ethkey verifymessage</h2>
-<pre class="highlight"><code class="language-shell">Usge:
+<pre class="codehilite"><code class="language-shell">Usge:
     ethkey verifymessage &lt;address&gt; &lt;signature&gt; &lt;message/file&gt;
 
 e.g:
@@ -149,7 +144,6 @@ Result:
 Signature verification successful!
 Recovered public key: 04f7acbc87ddf0da6edbd3ac86f81ebac69992cd4b40897855322c5c4ed029cacd5e1b9ef5b78d66576de68041689702fe5a893cae5f46def58e25738efa2ff801
 Recovered address: 0x8B5d3Af7bF4d309D4C83Ed30936f78FBB1AcAA18</code></pre>
-
 <p>注：上述命令的地址和签名需要改成你自己的对应的地址和签名，message内容可以改成你需要签名打内容，但是需要保持第五解和第六节打message内容一致。</p>
 
   <br>

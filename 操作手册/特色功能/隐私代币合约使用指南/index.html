@@ -106,42 +106,37 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </ul>
 <h2 id="3">3. 操作演示</h2>
 <h3 id="31-deployer-key">3.1. 合约部署者公私钥 Deployer key</h3>
-<pre class="highlight"><code class="language-shell">pubkey:
+<pre class="codehilite"><code class="language-shell">pubkey:
 XZo30iKb0xe5wsUU57y+h/Z5mGEwpED3By8XZwlvq0CWBvcPscTBkh/ImGTbjinWZEZA9IWfIvWqGDPCOt6GIdn/INW+1eu3w89cOok8VPBezOo9YunV/PtGtvnA8DNF/iBKyus4q0qVsoAX5c2odwTCkLBv+uGLcWstE68vgGUiOWl14iLSNPaLSTBb4xABfbmb76+v823kRjXzqzlP5oaFecCav48+MlCmWQGfI0bZbu/sg97z5cP7TmfWWB8uc7HpXx4KyjPaSFAx5S5+65EuIYn6frCirulEVXMsTOyESSUPiqSpbJMzmzb7K2T9X/grtXJoZiuf6+fwcvcEH1/q7yP9Inm1sO6A1zSV+I6T+EmP+5WtIhJ+ioNI88P9m09L0Ndeyw3GouD1VAjPsw6qIg+ysWYgjo5YZfEc5vo3o0GUgFrjICekm13qeyr4YmOzJfM0yG7TLcGdptVwZDU4nAS1AnpLObMiyzc97cvxEtz6L5dF1qqAi1h7eyfZXZo30iKb0xe5wsUU57y+h/Z5mGEwpED3By8XZwlvq0CWBvcPscTBkh/ImGTbjinWZEZA9IWfIvWqGDPCOt6GIdn/INW+1eu3w89cOok8VPBezOo9YunV/PtGtvnA8DNF/iBKyus4q0qVsoAX5c2odwTCkLBv+uGLcWstE68vgGY=
 
 seckey:
 XZo30iKb0xe5wsUU57y+h/Z5mGEwpED3By8XZwlvq0CWBvcPscTBkh/ImGTbjinWZEZA9IWfIvWqGDPCOt6GIKPKiL1kPLS76xThY2EuLDDqV4G5RZARfPYhdR6OAhwp6xqsFA53rGNFs3h2Sh6GOv7yyQPzyULSCoZ587Or1iwLFWuhGQ2XPR4bjE5tcbjV7WMsfM6OM4bIFLFQ/XVyuMLtTrFnjqRS44QGBElW8rLcNe1ZI/QvCzaILpsman++rAXzhemc9a/5K9KDJDzwQCK5B7oa9lcf8QKU74rXgASnda7lIPk7xmKkA/GQAhlmx3rUHHpJ9eEqMYoX4G/Tpg==
 </code></pre>
-
 <h3 id="32-deploy-contract">3.2. 部署隐私代币合约 Deploy contract</h3>
-<pre class="highlight"><code class="language-shell">ctool deploy --code ~/PlatONE-Go/release/linux/conf/contracts/token.wasm --abi ~/PlatONE-Go/release/linux/conf/contracts/token.cpp.abi.json --config ../ctool.json</code></pre>
-
+<pre class="codehilite"><code class="language-shell">ctool deploy --code ~/PlatONE-Go/release/linux/conf/contracts/token.wasm --abi ~/PlatONE-Go/release/linux/conf/contracts/token.cpp.abi.json --config ../ctool.json</code></pre>
 <ul>
 <li>用户注册 register user</li>
 </ul>
-<pre class="highlight"><code class="language-shell"># generate user keys offline
+<pre class="codehilite"><code class="language-shell"># generate user keys offline
 ./nizkpail
 cmd&gt; 1
 
 #upload user pubkey
 ctool invoke --addr 0x6566ed9c6c5accf27ebdcadae3f04f16220c6b2a --func userregister --param mi++ciEiqNGsHajPbYCCk01oaUkPICWfcPyg204sSOiRWDqd3iJppTSspSiQaRNRk+6qjrBxa7zwT+zvpEvnAXO+aaV4oIyrTrhGZd3cKNzBBziTQAMYNBDlsRv7GnrMhAZxJKGfF5bmB74NMOh741tQ9RBuHRz0gUKN9jXsTe1c3XoIy3N55znQbG4yTEyZLoj1lwYM3fOGXr4LDW+n1Dl1G/F5Aj3d3fv0dYjcrhs05k/eggWMktKMPQPDl0CSfDZyhlp6US1g4nE9W61R1NCYZCaAwjy+zLUr2h8NZE0OPvLn53wk52enCWmgUfDlwOeAzhuffM7U1UcDWTzA3miMnvUQZOIyS8+F+FuCkeCyibdug0S3OmPWxe6lWDUBkMEw0v3DAMA1EJ9nhjqtFu5y9mwDxrazkr88kdM7xa8oSj6bcrQXbU3viye7s36Il91nc1v8YV96cC2dmN96CdXQCkHVZt4EyLEqvdOHhkM0IUejczd8WwOMh9/msG1pmi++ciEiqNGsHajPbYCCk01oaUkPICWfcPyg204sSOiRWDqd3iJppTSspSiQaRNRk+6qjrBxa7zwT+zvpEvnAXO+aaV4oIyrTrhGZd3cKNzBBziTQAMYNBDlsRv7GnrMhAZxJKGfF5bmB74NMOh741tQ9RBuHRz0gUKN9jXsTe4= --abi ~/PlatONE-Go/release/linux/conf/contracts/token.cpp.abi.json --config ../config.json</code></pre>
-
 <ul>
 <li>转账 transfer</li>
 </ul>
-<pre class="highlight"><code class="language-shell"># generate zk proof
+<pre class="codehilite"><code class="language-shell"># generate zk proof
 ./nizkpail
 cmd&gt; 6
 
 #invoke transfer function
 
 ctool invoke --addr 0x6566ed9c6c5accf27ebdcadae3f04f16220c6b2a --func transfer --param ${pai} --param ${fromAmountCipher} --param ${toAmountCipher} --param 0x5224a76e6ce5a1e2d6839c72fc5bdebe90bede68 --abi ~/PlatONE-Go/release/linux/conf/contracts/token.cpp.abi.json --config ../ctool.json</code></pre>
-
 <ul>
 <li>余额查询 get balance</li>
 </ul>
-<pre class="highlight"><code class="language-shell">ctool invoke --addr 0x6566ed9c6c5accf27ebdcadae3f04f16220c6b2a --func getBalance --param 0xf564dbddb09083ecf801b1a26e4d356213a3dcf7  --abi ~/PlatONE-Go/release/linux/conf/contracts/token.cpp.abi.json --config ../config.json</code></pre>
-
+<pre class="codehilite"><code class="language-shell">ctool invoke --addr 0x6566ed9c6c5accf27ebdcadae3f04f16220c6b2a --func getBalance --param 0xf564dbddb09083ecf801b1a26e4d356213a3dcf7  --abi ~/PlatONE-Go/release/linux/conf/contracts/token.cpp.abi.json --config ../config.json</code></pre>
 <p>ps:  addr  0x5224a76e6ce5a1e2d6839c72fc5bdebe90bede68</p>
 
   <br>

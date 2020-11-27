@@ -101,76 +101,66 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 <ul>
 <li>安装依赖</li>
 </ul>
-<pre class="highlight"><code class="language-sh">sudo apt install build-essential cmake libz-dev libtinfo-dev</code></pre>
-
+<pre class="codehilite"><code class="language-sh">sudo apt install build-essential cmake libz-dev libtinfo-dev</code></pre>
 <ul>
 <li>获取源码</li>
 </ul>
-<pre class="highlight"><code class="language-shell">git clone https://172.16.211.192/PlatONE/src/node/PlatONE-CDT.git</code></pre>
-
+<pre class="codehilite"><code class="language-shell">暂未开源，如有需要，请联系我们</code></pre>
 <ul>
 <li>执行编译</li>
 </ul>
-<pre class="highlight"><code class="language-sh">cd platone-CDT
+<pre class="codehilite"><code class="language-sh">cd platone-CDT
 mkdir build &amp;&amp; cd build
 cmake .. 
 make &amp;&amp; make install</code></pre>
-
 <h3 id="windows">Windows</h3>
 <p>Windows下编译需要先安装<a href="https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/sjlj/x86_64-8.1.0-release-posix-sjlj-rt_v6-rev0.7z">MinGW-W64 GCC-8.1.0</a>, 且安装路径不能含有空格(即: 不能安装在"Program
 Files"或"Program Files(x86)目录"), 否则编译失败.</p>
 <ul>
 <li>获取源码</li>
 </ul>
-<pre class="highlight"><code class="language-shell">git clone https://172.16.211.192/PlatONE/src/node/PlatONE-CDT.git</code></pre>
-
+<pre class="codehilite"><code class="language-shell">暂未开源，如有需要，请联系我们</code></pre>
 <ul>
 <li>执行编译</li>
 </ul>
-<pre class="highlight"><code class="language-sh">cd platone-CDT
+<pre class="codehilite"><code class="language-sh">cd platone-CDT
 mkdir build &amp;&amp; cd build
 cmake -G "MinGW Makefiles" .. -DCMAKE_INSTALL_PREFIX="C:/platone.cdt" -DCMAKE_MAKE_PROGRAM=mingw32-make
 mingw32-make &amp;&amp; mingw32-make install</code></pre>
-
 <h2 id="_3">使用</h2>
 <p>在使用platone-CDT之前必须将platone-CDT编译生成的执行文件路径加到PATH环境变量中.</p>
 <h3 id="_4">单文件项目</h3>
 <ul>
 <li>初始化项目</li>
 </ul>
-<pre class="highlight"><code class="language-sh">platone-init -project=example -bare</code></pre>
-
+<pre class="codehilite"><code class="language-sh">platone-init -project=example -bare</code></pre>
 <ul>
 <li>编译WASM文件</li>
 </ul>
-<pre class="highlight"><code class="language-sh">cd example
+<pre class="codehilite"><code class="language-sh">cd example
 platone-cpp -o example.wasm example.cpp -abigen</code></pre>
-
 <h3 id="cmake">CMake项目</h3>
 <ul>
 <li>初始化项目</li>
 </ul>
-<pre class="highlight"><code class="language-sh">platone-init -project=cmake_example </code></pre>
-
+<pre class="codehilite"><code class="language-sh">platone-init -project=cmake_example </code></pre>
 <ul>
 <li>
 <p>编译</p>
 </li>
 <li>
 <p>Linux</p>
-<pre class="highlight"><code>cd cmake_example/build
+<pre class="codehilite"><code>cd cmake_example/build
 cmake ..</code></pre>
-
 </li>
 <li>
 <p>Windows&gt;<strong>编译依赖:</strong>&gt;+ <a href="https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/sjlj/x86_64-8.1.0-release-posix-sjlj-rt_v6-rev0.7z">MinGW-W64 GCC-8.1.0</a>&gt;+ CMake 3.5 or higher</p>
-<pre class="highlight"><code>cd cmake_example/build
+<pre class="codehilite"><code>cd cmake_example/build
 cmake .. -G "MinGW Makefiles" -Dplatone_CDT_ROOT=&lt;cdt_install_dir&gt;</code></pre>
-
 </li>
 </ul>
 <h2 id="trouble-shotting">Trouble shotting</h2>
-<p><pre class="highlight"><code class="language-sh">platone-init: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.20' not found (required by platone-init)
+<p><pre class="codehilite"><code class="language-sh">platone-init: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.20' not found (required by platone-init)
 platone-init: /lib64/libstdc++.so.6: version `CXXABI_1.3.9' not found (required by platone-init)
 platone-init: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by platone-init)</code></pre>
 gcc&amp;g++版本太低导致，请升级版本</p>

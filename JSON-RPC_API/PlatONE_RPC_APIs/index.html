@@ -112,14 +112,11 @@ See the <a href="https://github.com/ethereum/wiki/wiki/JavaScript-API">JavaScrip
 </table>
 <h3 id="go">Go</h3>
 <p>You can start the HTTP JSON-RPC with the <code>--rpc</code> flag</p>
-<pre class="highlight"><code class="language-bash">platone --rpc</code></pre>
-
+<pre class="codehilite"><code class="language-bash">platone --rpc</code></pre>
 <p>change the default port (8545) and listing address (localhost) with:</p>
-<pre class="highlight"><code class="language-bash">platone --rpc --rpcaddr &lt;ip&gt; --rpcport &lt;portnumber&gt;</code></pre>
-
+<pre class="codehilite"><code class="language-bash">platone --rpc --rpcaddr &lt;ip&gt; --rpcport &lt;portnumber&gt;</code></pre>
 <p>If accessing the RPC from a browser, CORS will need to be enabled with the appropriate domain set. Otherwise, JavaScript calls are limit by the same-origin policy and requests will fail:</p>
-<pre class="highlight"><code class="language-bash">platone --rpc --rpccorsdomain "http://localhost:3000"</code></pre>
-
+<pre class="codehilite"><code class="language-bash">platone --rpc --rpccorsdomain "http://localhost:3000"</code></pre>
 <p>The JSON RPC can also be started from the <a href="https://github.com/ethereum/go-ethereum/wiki/JavaScript-Console">platone console</a> using the <code>admin.startRPC(addr, port)</code> command.</p>
 <h2 id="json-rpc-support">JSON-RPC support</h2>
 <table>
